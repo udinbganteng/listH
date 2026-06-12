@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="gv.png" type="image/x-icon">
+    <link rel="icon" type="image/png" href="gambar/logo-32x32.png" sizes="32x32">
+
+    <link rel="icon" type="image/png" href="gambar/logo-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="gambar/logo-512x512.png" sizes="512x512">
+
+    <link rel="apple-touch-icon" href="gambar/logo-180x180.png">
+
     <title>KuotaKu</title>
     <style>
         /* --- RESET & VARIABLES --- */
@@ -33,8 +40,8 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            line-height: 1.6;
-            padding-bottom: 60px;
+            line-height: 1.4;
+            padding-bottom: 20px;
         }
 
         /* --- HEADER --- */
@@ -42,19 +49,19 @@
             background: linear-gradient(135deg, var(--primary-color), #3b82f6);
             color: white;
             text-align: center;
-            padding: 2.5rem 1rem;
-            margin-bottom: 1.5rem;
+            padding: 1.5rem 1rem;
+            margin-bottom: 1rem;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             position: relative;
         }
 
         header h1 {
-            font-size: 2.2rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+            margin-bottom: 0.25rem;
         }
 
         header p {
-            font-size: 1rem;
+            font-size: 0.85rem;
             opacity: 0.9;
         }
 
@@ -66,9 +73,9 @@
             background: rgba(255, 255, 255, 0.2);
             color: white;
             border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 6px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             cursor: pointer;
             backdrop-filter: blur(4px);
             transition: all 0.2s;
@@ -81,32 +88,29 @@
         /* --- FORM TAMBAH PRODUK (SELLER ONLY) --- */
         .admin-form-container {
             max-width: 1200px;
-            margin: 0 auto 2rem auto;
-            padding: 0 1rem;
-            display: none; /* Sembunyi secara default */
+            margin: 0 auto 1rem auto;
+            padding: 0 0.75rem;
+            display: none;
         }
 
         .admin-card-form {
             background: var(--admin-bg);
             border: 2px dashed var(--admin-border);
             border-radius: 12px;
-            padding: 1.5rem;
+            padding: 1rem;
         }
 
         .admin-card-form h3 {
             color: #5b21b6;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
         }
 
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
         }
 
         .form-group {
@@ -116,45 +120,38 @@
         }
 
         .form-group label {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 600;
             color: #4c1d95;
         }
 
-        .form-group input, .form-group select {
-            padding: 0.5rem;
+        .form-group input,
+        .form-group select {
+            padding: 0.4rem;
             border: 1px solid var(--admin-border);
             border-radius: 6px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             outline: none;
             background: #ffffff;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            border-color: var(--admin-color);
-            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
         }
 
         .btn-admin-submit {
             background-color: var(--admin-color);
             color: white;
-            padding: 0.6rem 1.5rem;
+            padding: 0.5rem 1rem;
             border: none;
             border-radius: 6px;
             font-weight: 600;
+            font-size: 0.85rem;
             cursor: pointer;
-            transition: background 0.2s;
+            width: 100%;
         }
 
-        .btn-admin-submit:hover {
-            background-color: #4338ca;
-        }
-
-        /* --- FILTER NAVIGATION (TABS) --- */
+        /* --- FILTER NAVIGATION (DYNAMIC TABS) --- */
         .tabs-container {
             max-width: 1200px;
-            margin: 0 auto 1rem auto;
-            padding: 0 1rem;
+            margin: 0 auto 0.5rem auto;
+            padding: 0 0.75rem;
             overflow-x: auto;
             white-space: nowrap;
         }
@@ -165,53 +162,46 @@
 
         .tabs-wrapper {
             display: flex;
-            gap: 0.5rem;
-            padding-bottom: 8px;
+            gap: 0.4rem;
+            padding-bottom: 4px;
         }
 
         .tab-btn {
-            padding: 0.6rem 1.2rem;
+            padding: 0.4rem 1rem;
             border: 1px solid var(--border-color);
             background-color: var(--card-bg);
             color: var(--text-main);
             border-radius: 50px;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: all 0.2s ease;
-        }
-
-        .tab-btn:hover {
-            background-color: #f1f5f9;
-            border-color: var(--text-muted);
         }
 
         .tab-btn.active {
             background-color: var(--primary-color);
             color: white;
             border-color: var(--primary-color);
-            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
         }
 
-        /* --- SUB-FILTER KATEGORI (HARIAN / MINGGUAN) --- */
+        /* --- SUB-FILTER KATEGORI --- */
         .sub-filters {
             max-width: 1200px;
-            margin: 0 auto 1.5rem auto;
-            padding: 0 1rem;
+            margin: 0 auto 1rem auto;
+            padding: 0 0.75rem;
             display: flex;
-            gap: 0.5rem;
+            gap: 0.4rem;
         }
 
         .sub-btn {
-            padding: 0.4rem 1rem;
+            padding: 0.3rem 0.8rem;
             border: 1px solid var(--border-color);
             background-color: transparent;
             color: var(--text-muted);
             border-radius: 8px;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
         }
 
         .sub-btn.active {
@@ -224,124 +214,157 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1rem;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        @media (min-width: 992px) {
-            .container {
-                grid-template-columns: 2.5fr 1.5fr;
-                align-items: start;
-            }
+            padding: 0 0.75rem;
         }
 
         section h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1.2rem;
-            padding-bottom: 0.5rem;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.25rem;
             border-bottom: 2px solid var(--border-color);
         }
 
-        /* --- PRODUCT GRID & CARDS --- */
+        /* --- HORIZONTAL PRODUCT LIST (MOBILE OPTIMIZED) --- */
         .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
         .product-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            border-radius: 8px;
+            padding: 0.6rem 0.75rem;
+            display: grid;
+            grid-template-columns: 2.5fr 1.5fr 1.2fr;
+            align-items: center;
+            gap: 0.5rem;
             position: relative;
-            overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: box-shadow 0.2s;
         }
 
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-        }
-
+        /* Badge Provider Visual */
         .badge {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            padding: 0.25rem 0.75rem;
-            border-radius: 50px;
-            font-size: 0.75rem;
+            display: inline-block;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.65rem;
             font-weight: bold;
             text-transform: uppercase;
+            margin-bottom: 0.15rem;
         }
 
-        .telkomsel { background: #fee2e2; color: #ef4444; }
-        .indosat { background: #fef3c7; color: #d97706; }
-        .xl { background: #dbeafe; color: #2563eb; }
-        .axis { background: #f3e8ff; color: #9333ea; }
-        .three { background: #f1f5f9; color: #0f172a; }
-        .smartfren { background: #fce7f3; color: #db2777; }
-        .liveon { background: #e0f2fe; color: #0369a1; }
-        .byu { background: #e0f2fe; color: #06b6d4; }
+        .telkomsel {
+            background: #fee2e2;
+            color: #ef4444;
+        }
 
-        .prod-provider {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-bottom: 0.25rem;
+        .indosat {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .xl {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+        .axis {
+            background: #f3e8ff;
+            color: #9333ea;
+        }
+
+        .three {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .smartfren {
+            background: #fce7f3;
+            color: #db2777;
+        }
+
+        .liveon {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .byu {
+            background: #e0f2fe;
+            color: #06b6d4;
+        }
+
+        .prod-info-main {
+            display: flex;
+            flex-direction: column;
         }
 
         .prod-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            padding-right: 4.5rem;
-        }
-
-        .prod-details {
-            background: var(--bg-color);
-            padding: 0.75rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .prod-details div {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.25rem;
-        }
-
-        .prod-details div:last-child { margin-bottom: 0; }
-        .label { color: var(--text-muted); }
-        .value { font-weight: 600; }
-
-        /* --- SELLER/ADMIN VIEW INFORMATION PANEL --- */
-        .seller-info-panel {
-            background: #faf5ff;
-            border: 1px solid #e9d5ff;
-            border-radius: 8px;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
             font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .prod-meta-sub {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .prod-price-box {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .prod-price {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .prod-active-period {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .btn-buy {
+            width: 100%;
+            padding: 0.45rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            background-color: var(--success-color);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn-buy:hover {
+            background-color: var(--success-hover);
+        }
+
+        /* --- SELLER/ADMIN VIEW PANEL (FULL WIDTH UNDER CARD) --- */
+        .seller-info-panel {
+            grid-column: 1 / -1;
+            background: #faf5ff;
+            border-top: 1px dashed #e9d5ff;
+            padding-top: 0.4rem;
+            margin-top: 0.2rem;
+            font-size: 0.75rem;
         }
 
         .seller-info-panel h4 {
             color: #6b21a8;
-            font-size: 0.9rem;
-            margin-bottom: 0.4rem;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .seller-meta {
-            margin-bottom: 0.25rem;
+            font-size: 0.75rem;
+            margin-bottom: 0.15rem;
         }
 
         .seller-meta span {
@@ -349,90 +372,36 @@
             color: #4c1d95;
         }
 
-        .prod-price {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
+        /* Layout Responsif untuk HP Sangat Kecil agar Tidak Saling Bertabrakan */
+        @media (max-width: 400px) {
+            .product-card {
+                grid-template-columns: 2fr 1.3fr 1.1fr;
+                padding: 0.5rem;
+                gap: 0.3rem;
+            }
 
-        .btn-btn {
-            width: 100%;
-            padding: 0.75rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.5rem;
-        }
+            .prod-name {
+                font-size: 0.8rem;
+            }
 
-        .btn-primary { background-color: var(--primary-color); color: white; }
-        .btn-primary:hover { background-color: var(--primary-hover); }
-        .btn-success { background-color: var(--success-color); color: white; margin-top: 1rem; }
-        .btn-success:hover { background-color: var(--success-hover); }
+            .prod-price {
+                font-size: 0.85rem;
+            }
 
-        /* --- CART SIDEBAR --- */
-        .cart-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            position: sticky;
-            top: 20px;
-        }
-
-        .cart-empty { text-align: center; color: var(--text-muted); padding: 2rem 0; }
-        .cart-list { list-style: none; max-height: 350px; overflow-y: auto; margin-bottom: 1rem; }
-        
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem 0;
-            border-bottom: 1px dashed var(--border-color);
-        }
-
-        .cart-item-info { flex: 1; padding-right: 1rem; }
-        .cart-item-title { font-weight: 600; font-size: 0.95rem; }
-        .cart-item-sub { font-size: 0.85rem; color: var(--text-muted); }
-
-        .btn-delete {
-            background: transparent;
-            border: none;
-            color: var(--danger-color);
-            cursor: pointer;
-            font-size: 0.85rem;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-        }
-        .btn-delete:hover { background-color: #fee2e2; }
-
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            font-size: 1.2rem;
-            font-weight: 800;
-            padding-top: 1rem;
-            border-top: 2px solid var(--border-color);
-        }
-
-        @media (max-width: 991px) {
-            .cart-card { position: static; margin-top: 1rem; }
+            .btn-buy {
+                font-size: 0.75rem;
+                padding: 0.4rem;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <header>
         <button class="admin-trigger" id="adminBtn" onclick="toggleAdminMode()">🔒 Mode Penjual</button>
         <h1>Kuotaku Store</h1>
-        <p>Pilih provider favoritmu, susun paket, lalu kirim pesanan langsung ke WhatsApp!</p>
+        <p>List harga kuota internet terlengkap. Sekali klik langsung order ke WhatsApp!</p>
     </header>
 
     <div class="admin-form-container" id="adminFormContainer">
@@ -442,19 +411,19 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="pName">Nama Paket/Produk</label>
-                        <input type="text" id="pName" placeholder="Contoh: Telkomsel Mini Data 2GB" required>
+                        <input type="text" id="pName" placeholder="Contoh: Mini Data 2GB" required>
                     </div>
                     <div class="form-group">
                         <label for="pProvider">Provider</label>
-                        <select id="pProvider" onchange="syncClassBadge()" required>
+                        <select id="pProvider" required>
                             <option value="Telkomsel">Telkomsel</option>
                             <option value="Indosat">Indosat</option>
-                            <option value="XL">XL Axiata</option>
+                            <option value="XL">XL</option>
                             <option value="Axis">Axis</option>
                             <option value="Three">Three</option>
                             <option value="Smartfren">Smartfren</option>
-                            <option value="LiveOn">Live.On</option>
-                            <option value="ByU">By.U</option>
+                            <option value="LiveOn">LiveOn</option>
+                            <option value="ByU">ByU</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -478,11 +447,11 @@
                     </div>
                     <div class="form-group">
                         <label for="pLocation">Lokasi Tembak Menu</label>
-                        <input type="text" id="pLocation" placeholder="Contoh: Isi Ulang Data > Paket..." required>
+                        <input type="text" id="pLocation" placeholder="Isi Ulang Data > ..." required>
                     </div>
                     <div class="form-group">
                         <label for="pNote">Catatan Kulakan</label>
-                        <input type="text" id="pNote" placeholder="Contoh: Paket ada di menu promo..." required>
+                        <input type="text" id="pNote" placeholder="Paket ada di menu..." required>
                     </div>
                 </div>
                 <button type="submit" class="btn-admin-submit">➕ Tambahkan ke Daftar Harga</button>
@@ -491,16 +460,7 @@
     </div>
 
     <div class="tabs-container">
-        <div class="tabs-wrapper">
-            <button class="tab-btn active" onclick="filterProvider('all')">🔥 Semua</button>
-            <button class="tab-btn" onclick="filterProvider('Telkomsel')">🔴 Telkomsel</button>
-            <button class="tab-btn" onclick="filterProvider('Indosat')">🟡 Indosat</button>
-            <button class="tab-btn" onclick="filterProvider('XL')">🔵 XL Axiata</button>
-            <button class="tab-btn" onclick="filterProvider('Axis')">🟣 Axis</button>
-            <button class="tab-btn" onclick="filterProvider('Three')">⚫ Three (3)</button>
-            <button class="tab-btn" onclick="filterProvider('Smartfren')">💗 Smartfren</button>
-            <button class="tab-btn" onclick="filterProvider('LiveOn')">💎 Live.On</button>
-            <button class="tab-btn" onclick="filterProvider('ByU')">🔷 By.U</button>
+        <div class="tabs-wrapper" id="dynamicTabsWrapper">
         </div>
     </div>
 
@@ -514,31 +474,15 @@
         <section>
             <h2 id="sectionTitle">📶 Semua Paket Internet</h2>
             <div class="product-grid" id="productGrid">
-                </div>
-        </section>
-
-        <aside>
-            <div class="cart-card">
-                <h2>🛒 Daftar Pesanan</h2>
-                <div id="cartEmpty" class="cart-empty">
-                    Keranjang kosong. Pilih paket kuota di sebelah kiri.
-                </div>
-                <ul id="cartList" class="cart-list"></ul>
-                <div id="cartSummary" style="display: none;">
-                    <div class="cart-total">
-                        <span>Total Harga:</span>
-                        <span id="totalPrice">Rp 0</span>
-                    </div>
-                    <button class="btn-btn btn-success" onclick="copyOrder()">
-                        📋 Salin Pesanan ke Clipboard
-                    </button>
-                </div>
             </div>
-        </aside>
+        </section>
     </main>
 
     <script>
-        /* --- MASTER DATA DENGAN INFORMASI LOKASI TEMBAK PENJUAL --- */
+        /* --- KONFIGURASI VERSI TERBARU --- */
+        const NOMOR_WA = "62812xxxxxxxx"; // Mengubah nomor dengan mudah lewat 1 variabel ini
+
+        /* --- MASTER DATA PRODUK --- */
         const products = [
             // Telkomsel Harian
             { id: 1, name: "Telkomsel Mini Data 1GB", provider: "Telkomsel", type: "harian", quota: "1 GB", activePeriod: "1 Hari", price: 10000, class: "telkomsel", location: "Isi Ulang Data > Paket Mini Data > harian", note: "Paket ada di menu promo harian." },
@@ -548,19 +492,14 @@
             { id: 5, name: "Telkomsel Mini Data 5GB", provider: "Telkomsel", type: "harian", quota: "5 GB", activePeriod: "5 Hari", price: 21000, class: "telkomsel", location: "Isi Ulang Data > Paket Mini Data > harian", note: "Bisa ditembak via digipos." },
             { id: 6, name: "Telkomsel Mini Data 7GB", provider: "Telkomsel", type: "harian", quota: "7 GB", activePeriod: "3 Hari", price: 29000, class: "telkomsel", location: "Isi Ulang Data > Paket Mini Data > harian", note: "Paling laris untuk streaming harian." },
             { id: 7, name: "Telkomsel Mini Data 8GB", provider: "Telkomsel", type: "harian", quota: "8 GB", activePeriod: "2 Hari", price: 30000, class: "telkomsel", location: "Isi Ulang Data > Paket Mini Data > harian", note: "Pengisian instan." },
-            
+
             // Telkomsel Mingguan / Bulanan
             { id: 8, name: "Telkomsel Mini Data 1GB", provider: "Telkomsel", type: "mingguan", quota: "1 GB", activePeriod: "30 Hari", price: 16000, class: "telkomsel", location: "Isi Ulang Data > Paket Mini Data > Mingguan", note: "Masa aktif panjang harga hemat." },
             { id: 9, name: "Telkomsel Mini Data 3GB", provider: "Telkomsel", type: "mingguan", quota: "3 GB", activePeriod: "7 Hari", price: 18000, class: "telkomsel", location: "Isi Ulang Data > Paket Mini Data > Mingguan", note: "Paket mingguan standar." },
             { id: 10, name: "Telkomsel Mini Data 7GB", provider: "Telkomsel", type: "mingguan", quota: "7 GB", activePeriod: "7 Hari", price: 28000, class: "telkomsel", location: "Isi Ulang Data > Paket Mini Data > Mingguan", note: "Termasuk kuota aplikasi chat." },
             { id: 11, name: "Telkomsel Mini Data 1.5GB", provider: "Telkomsel", type: "mingguan", quota: "1.5 GB", activePeriod: "14 Hari", price: 28000, class: "telkomsel", location: "Isi Ulang Data > Paket Mini Data > Mingguan", note: "Sering dipakai anak sekolahan." },
-            
-            // Provider Lain (Dianggap Kategori Bulanan/Mingguan)
-            { id: 20, name: "Indosat Freedom 10GB", provider: "Indosat", type: "mingguan", quota: "10 GB", activePeriod: "30 Hari", price: 35000, class: "indosat", location: "IM3 App > Freedom Internet", note: "Kuota Utama tanpa dibagi-bagi." },
-            { id: 21, name: "Indosat Freedom 24GB", provider: "Indosat", type: "mingguan", quota: "24 GB", activePeriod: "30 Hari", price: 60000, class: "indosat", location: "IM3 App > Freedom Internet Long", note: "Aman dari pembatasan lokal." },
 
-            { id: 30, name: "XL Xtra Combo 20GB", provider: "XL", type: "mingguan", quota: "20 GB", activePeriod: "30 Hari", price: 55000, class: "xl", location: "myXL > Xtra Combo Flex", note: "Ada bonus pilihan kuota aplikasi." },
-
+            // AXIS
             { id: 40, name: "Aigo Mini 5GB + Bonus", provider: "Axis", type: "harian", quota: "5 GB", activePeriod: "1 Hari", price: 8000, class: "axis", location: "Aigo Kuota Mini > 1-3hari", note: "Paket reguler non-lokal." },
             { id: 41, name: "Aigo Mini 15GB + Bonus", provider: "Axis", type: "harian", quota: "15 GB", activePeriod: "1 Hari", price: 10000, class: "axis", location: "Aigo Kuota Mini > 1-3hari", note: "Paket reguler non-lokal." },
             { id: 42, name: "Aigo Mini 5GB + Bonus", provider: "Axis", type: "harian", quota: "5 GB", activePeriod: "2 Hari", price: 10000, class: "axis", location: "Aigo Kuota Mini > 1-3hari", note: "Paket reguler non-lokal." },
@@ -572,43 +511,183 @@
             { id: 48, name: "Aigo Mini 6GB + Bonus", provider: "Axis", type: "mingguan", quota: "6 GB", activePeriod: "7 Hari", price: 20000, class: "axis", location: "Aigo Kuota Mini > 7hari", note: "Paket reguler non-lokal." },
             { id: 49, name: "Aigo Mini 10GB + Bonus", provider: "Axis", type: "mingguan", quota: "10 GB", activePeriod: "7 Hari", price: 25000, class: "axis", location: "Aigo Kuota Mini > 7hari", note: "Paket reguler non-lokal." },
 
+            // Tri
             { id: 50, name: "TRI 6GB", provider: "Three", type: "harian", quota: "6GB", activePeriod: "1 Hari", price: 8000, class: "three", location: "paket Happy", note: "Full kuota 24 jam nonstop." },
             { id: 51, name: "TRI 10GB", provider: "Three", type: "harian", quota: "10GB", activePeriod: "1 Hari", price: 10000, class: "three", location: "paket Happy", note: "Full kuota 24 jam nonstop." },
             { id: 52, name: "TRI 7GB", provider: "Three", type: "harian", quota: "7GB", activePeriod: "2 Hari", price: 11000, class: "three", location: "paket Happy", note: "Full kuota 24 jam nonstop." },
             { id: 54, name: "TRI 8GB", provider: "Three", type: "harian", quota: "8GB", activePeriod: "3 Hari", price: 14000, class: "three", location: "paket Happy", note: "Full kuota 24 jam nonstop." },
             { id: 55, name: "TRI 10GB", provider: "Three", type: "harian", quota: "10GB", activePeriod: "5 Hari", price: 18000, class: "three", location: "paket Happy", note: "Full kuota 24 jam nonstop." },
             { id: 56, name: "TRI 11GB", provider: "Three", type: "harian", quota: "11GB", activePeriod: "5 Hari", price: 22000, class: "three", location: "paket Happy", note: "Full kuota 24 jam nonstop." },
-            
-            
             { id: 57, name: "TRI 3GB", provider: "Three", type: "mingguan", quota: "3GB", activePeriod: "28 Hari", price: 22000, class: "three", location: "paket Happy", note: "Full kuota 24 jam nonstop." },
             { id: 58, name: "TRI 11GB", provider: "Three", type: "mingguan", quota: "11GB", activePeriod: "28 Hari", price: 36000, class: "three", location: "paket Happy", note: "Full kuota 24 jam nonstop." },
 
+            // Smartfren
+            { id: 60, name: "Smartfren Unlimited Nonstop", provider: "Smartfren", type: "harian", quota: "45 GB", activePeriod: "30 Hari", price: 70000, class: "smartfren", location: "MySmartfren > Unlimited Nonstop", note: "Tetap bisa internetan meski kuota habis." },
+            { id: 61, name: "Smartfren Unlimited Nonstop", provider: "Smartfren", type: "mingguan", quota: "45 GB", activePeriod: "30 Hari", price: 70000, class: "smartfren", location: "MySmartfren > Unlimited Nonstop", note: "Tetap bisa internetan meski kuota habis." },
 
-            { id: 60, name: "Smartfren Unlimited Nonstop", provider: "Smartfren", type: "mingguan", quota: "45 GB", activePeriod: "30 Hari", price: 70000, class: "smartfren", location: "MySmartfren > Unlimited Nonstop", note: "Tetap bisa internetan meski kuota habis." },
-
+            // Indosat
             { id: 70, name: "Indosat Freedom Mini 1GB", provider: "Indosat", type: "harian", quota: "1GB", activePeriod: "2 Hari", price: 8000, class: "indosat", location: "Isi Ulang > Fredoom Mini Data > All Nasional", note: "Full kuota 24 jam nonstop." },
             { id: 71, name: "Indosat Freedom Mini 5GB", provider: "Indosat", type: "harian", quota: "5GB", activePeriod: "1 Hari", price: 8000, class: "indosat", location: "Isi Ulang > Fredoom Mini Data > All Nasional", note: "Full kuota 24 jam nonstop." },
             { id: 72, name: "Indosat Freedom Mini 7GB", provider: "Indosat", type: "harian", quota: "7GB", activePeriod: "1 Hari", price: 10000, class: "indosat", location: "Isi Ulang > Fredoom Mini Data > All Nasional", note: "Full kuota 24 jam nonstop." },
             { id: 73, name: "Indosat Freedom Mini 6GB", provider: "Indosat", type: "harian", quota: "6GB", activePeriod: "2 Hari", price: 11000, class: "indosat", location: "Isi Ulang > Fredoom Mini Data > All Nasional", note: "Full kuota 24 jam nonstop." },
             { id: 74, name: "Indosat Freedom Mini 9GB", provider: "Indosat", type: "harian", quota: "9GB", activePeriod: "1 Hari", price: 11000, class: "indosat", location: "Isi Ulang > Fredoom Mini Data > All Nasional", note: "Full kuota 24 jam nonstop." },
             { id: 75, name: "Indosat Freedom Mini 4GB", provider: "Indosat", type: "harian", quota: "4GB", activePeriod: "5 Hari", price: 15000, class: "indosat", location: "Isi Ulang > Fredoom Mini Data > All Nasional", note: "Full kuota 24 jam nonstop." },
-
             { id: 76, name: "PROMO Indosat Freedom 4GB", provider: "Indosat", type: "mingguan", quota: "4GB", activePeriod: "28 Hari", price: 24000, class: "indosat", location: "Isi Ulang > Fredoom Data > Mobo", note: "Full kuota 24 jam nonstop." },
             { id: 77, name: "Indosat Freedom 3GB", provider: "Indosat", type: "mingguan", quota: "3GB", activePeriod: "20 Hari", price: 24000, class: "indosat", location: "Isi Ulang > Fredoom Data > Mobo", note: "Full kuota 24 jam nonstop." },
             { id: 78, name: "Indosat Freedom 3GB", provider: "Indosat", type: "mingguan", quota: "3GB", activePeriod: "28 Hari", price: 29000, class: "indosat", location: "Isi Ulang > Fredoom Data > Mobo", note: "Full kuota 24 jam nonstop." },
 
+            // XL
+            { id: 80, name: "XL Xtra Combo 20GB", provider: "XL", type: "harian", quota: "20 GB", activePeriod: "30 Hari", price: 55000, class: "xl", location: "myXL > Xtra Combo Flex", note: "Ada bonus pilihan kuota aplikasi." },
+            { id: 81, name: "XL Xtra Combo 20GB", provider: "XL", type: "mingguan", quota: "20 GB", activePeriod: "30 Hari", price: 55000, class: "xl", location: "myXL > Xtra Combo Flex", note: "Ada bonus pilihan kuota aplikasi." },
 
-
-            { id: 80, name: "XL Xtra Combo 20GB", provider: "XL", type: "mingguan", quota: "20 GB", activePeriod: "30 Hari", price: 55000, class: "xl", location: "myXL > Xtra Combo Flex", note: "Ada bonus pilihan kuota aplikasi." },
+            // By.U
+            { id: 90, name: "By.U Yang Bikin Nagih", provider: "ByU", quota: "12 GB", type: "harian", activePeriod: "30 Hari", price: 30000, class: "byu", location: "by.U App > Build Your Plan", note: "Jaringan ikut infrastruktur Telkomsel." },
             { id: 91, name: "By.U Yang Bikin Nagih", provider: "ByU", quota: "12 GB", type: "mingguan", activePeriod: "30 Hari", price: 30000, class: "byu", location: "by.U App > Build Your Plan", note: "Jaringan ikut infrastruktur Telkomsel." }
         ];
 
-        let cart = [];
         let currentFilter = 'all';
         let currentCategory = 'all';
-        let isAdminMode = false; // Status mode rahasia penjual
+        let isAdminMode = false;
 
-        /* --- CONTROLLER MODE ADMIN / SELLER --- */
+        // Inisialisasi Aplikasi saat Load Pertama Kali
+        window.addEventListener('DOMContentLoaded', () => {
+            renderTabs();
+            renderProducts();
+        });
+
+        /* --- DINAMIS PROVIDER MENUS GENERATOR --- */
+        function renderTabs() {
+            const wrapper = document.getElementById('dynamicTabsWrapper');
+
+            // Mendapatkan daftar nama provider unik dari data object products secara otomatis
+            const uniqueProviders = ['all'];
+            products.forEach(p => {
+                if (!uniqueProviders.includes(p.provider)) {
+                    uniqueProviders.push(p.provider);
+                }
+            });
+
+            // Map penyebutan nama display agar rapi di UI
+            const providerNames = {
+                'all': '🔥 Semua',
+                'Telkomsel': '🔴 Telkomsel',
+                'Indosat': '🟡 Indosat',
+                'XL': '🔵 XL Axiata',
+                'Axis': '🟣 Axis',
+                'Three': '⚫ Three (3)',
+                'Smartfren': '💗 Smartfren',
+                'LiveOn': '💎 Live.On',
+                'ByU': '🔷 By.U'
+            };
+
+            wrapper.innerHTML = uniqueProviders.map(prov => {
+                const displayName = providerNames[prov] || prov;
+                const activeClass = currentFilter === prov ? 'active' : '';
+                return `<button class="tab-btn ${activeClass}" id="tab-${prov}" onclick="filterProvider('${prov}')">${displayName}</button>`;
+            }).join('');
+        }
+
+        /* --- LOGIKA REDIRECT AUTOMATIC KE WHATSAPP --- */
+        function buyDirectToWhatsApp(id) {
+            const item = products.find(p => p.id === id);
+            if (!item) return;
+
+            const formatPrice = item.price.toLocaleString('id-ID');
+
+            // Format Pesan Teks Sesuai Ketentuan
+            const rawMessage = `Halo, saya ingin membeli paket berikut:\n` +
+                `Provider: ${item.provider}\n` +
+                `Nama Paket: ${item.name}\n` +
+                `Kuota: ${item.quota}\n` +
+                `Masa Aktif: ${item.activePeriod}\n` +
+                `Harga: Rp ${formatPrice}`;
+
+            const encodedText = encodeURIComponent(rawMessage);
+            const waUrl = `https://api.whatsapp.com/send?phone=${NOMOR_WA}&text=${encodedText}`;
+
+            // Buka tab WhatsApp Baru
+            window.open(waUrl, '_blank');
+        }
+
+        /* --- RENDER DAFTAR PRODUK (LAYOUT HORIZONTAL CARD) --- */
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+
+            const filtered = products.filter(p => {
+                const matchProv = (currentFilter === 'all' || p.provider === currentFilter);
+                const matchCat = (currentCategory === 'all' || p.type === currentCategory);
+                return matchProv && matchCat;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div style="text-align:center; padding:2rem; color:var(--text-muted); font-size:0.9rem;">Paket tidak ditemukan.</div>`;
+                return;
+            }
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+
+                // Buat Tampilan Detail Penjual Aktif jika isAdminMode = true
+                let adminPanelHtml = '';
+                if (isAdminMode) {
+                    adminPanelHtml = `
+                        <div class="seller-info-panel">
+                            <h4>🛠️ Data Kulakan Seller:</h4>
+                            <div class="seller-meta">📍 Tembak: <span>${p.location}</span></div>
+                            <div class="seller-meta">📝 Note: <span>${p.note}</span></div>
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <div class="prod-info-main">
+                        <div><span class="badge ${p.class}">${p.provider}</span></div>
+                        <div class="prod-name" title="${p.name}">${p.name}</div>
+                        <div class="prod-meta-sub">${p.quota}</div>
+                    </div>
+                    <div class="prod-price-box">
+                        <div class="prod-price">Rp ${p.price.toLocaleString('id-ID')}</div>
+                        <div class="prod-active-period">⌛ ${p.activePeriod}</div>
+                    </div>
+                    <div>
+                        <button class="btn-buy" onclick="buyDirectToWhatsApp(${p.id})">Beli</button>
+                    </div>
+                    ${adminPanelHtml}
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        /* --- CONTROLLER FILTER SYSTEM --- */
+        function filterProvider(prov) {
+            currentFilter = prov;
+
+            // Update active state tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            const activeTab = document.getElementById(`tab-${prov}`);
+            if (activeTab) activeTab.classList.add('active');
+
+            // Update Section Title
+            const providerTitles = { 'all': 'Semua Paket Internet' };
+            document.getElementById('sectionTitle').innerText = `📶 ${providerTitles[prov] || 'Paket ' + prov}`;
+
+            renderProducts();
+        }
+
+        function filterCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
+
+            if (cat === 'all') document.getElementById('subAll').classList.add('active');
+            if (cat === 'harian') document.getElementById('subHarian').classList.add('active');
+            if (cat === 'mingguan') document.getElementById('subMingguan').classList.add('active');
+
+            renderProducts();
+        }
+
+        /* --- SELLER INTERNAL FEATURES CONTROL --- */
         function toggleAdminMode() {
             const formContainer = document.getElementById('adminFormContainer');
             if (!isAdminMode) {
@@ -617,26 +696,24 @@
                     isAdminMode = true;
                     document.getElementById('adminBtn').innerText = "🔓 Mode Penjual (Aktif)";
                     document.getElementById('adminBtn').style.background = "var(--danger-color)";
-                    formContainer.style.display = 'block'; // Tampilkan form input
-                    alert("Akses diterima. Informasi menu penembakan & form tambah paket sekarang aktif.");
+                    formContainer.style.display = 'block';
+                    alert("Akses diterima. Informasi menu penembakan rahasia di bawah produk sekarang aktif.");
                     renderProducts();
                 } else {
-                    alert("Kode salah! Informasi rahasia penjual tetap dikunci.");
+                    alert("Kode salah!");
                 }
             } else {
                 isAdminMode = false;
                 document.getElementById('adminBtn').innerText = "🔒 Mode Penjual";
                 document.getElementById('adminBtn').style.background = "rgba(255, 255, 255, 0.2)";
-                formContainer.style.display = 'none'; // Sembunyikan form input
+                formContainer.style.display = 'none';
                 renderProducts();
             }
         }
 
-        /* --- LOGIKA TAMBAH PRODUK BARU --- */
         function addNewProduct(event) {
-            event.preventDefault(); // Mencegah page refresh bawaan form submit
+            event.preventDefault();
 
-            // Ambil values dari element input
             const name = document.getElementById('pName').value;
             const provider = document.getElementById('pProvider').value;
             const type = document.getElementById('pType').value;
@@ -645,198 +722,27 @@
             const price = parseInt(document.getElementById('pPrice').value);
             const location = document.getElementById('pLocation').value;
             const note = document.getElementById('pNote').value;
-            
-            // Map nama class css berdasarkan badge provider terpilih
+
+            // Penentuan CSS Class Badge Otomatis
             let providerClass = provider.toLowerCase();
-            if(provider === "XL") providerClass = "xl";
-            if(provider === "LiveOn") providerClass = "liveon";
-            if(provider === "ByU") providerClass = "byu";
+            if (provider === "XL") providerClass = "xl";
+            if (provider === "ByU") providerClass = "byu";
+            if (provider === "LiveOn") providerClass = "liveon";
 
-            // Buat ID unik berdasarkan timestamp waktu saat ini
-            const id = Date.now();
+            const newProduct = {
+                id: Date.now(),
+                name, provider, type, quota, activePeriod, price,
+                class: providerClass, location, note
+            };
 
-            // Push object produk baru ke array utama
-            products.push({
-                id, name, provider, type, quota, activePeriod, price, class: providerClass, location, note
-            });
+            products.push(newProduct);
+            alert(`Paket "${name}" Berhasil ditambahkan ke Aplikasi!`);
 
-            // Beri notifikasi, bersihkan field form, dan render ulang produknya
-            alert(`Paket "${name}" berhasil ditambahkan ke daftar!`);
             document.getElementById('newProductForm').reset();
+            renderTabs(); // Refresh tab bar jika ada provider baru
             renderProducts();
         }
-
-        /* --- FILTER HANDLERS --- */
-        function filterProvider(providerName) {
-            currentFilter = providerName;
-            updateTitle();
-            
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            renderProducts();
-        }
-
-        function filterCategory(categoryName) {
-            currentCategory = categoryName;
-            
-            document.getElementById('subAll').classList.remove('active');
-            document.getElementById('subHarian').classList.remove('active');
-            document.getElementById('subMingguan').classList.remove('active');
-
-            if (categoryName === 'all') document.getElementById('subAll').classList.add('active');
-            if (categoryName === 'harian') document.getElementById('subHarian').classList.add('active');
-            if (categoryName === 'mingguan') document.getElementById('subMingguan').classList.add('active');
-
-            renderProducts();
-        }
-
-        function updateTitle() {
-            const titleEl = document.getElementById('sectionTitle');
-            titleEl.innerText = currentFilter === 'all' ? "📶 Semua Paket Internet" : `📶 Paket Internet ${currentFilter}`;
-        }
-
-        /* --- ENGINE VIEW RENDER --- */
-        function renderProducts() {
-            const grid = document.getElementById('productGrid');
-            grid.innerHTML = '';
-
-            const filteredProducts = products.filter(p => {
-                const matchProvider = (currentFilter === 'all' || p.provider.toLowerCase() === currentFilter.toLowerCase());
-                const matchCategory = (currentCategory === 'all' || p.type === currentCategory);
-                return matchProvider && matchCategory;
-            });
-
-            if (filteredProducts.length === 0) {
-                grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 2rem;">Tidak ada produk kategori ini.</div>`;
-                return;
-            }
-
-            filteredProducts.forEach(prod => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                
-                let adminPanelHTML = '';
-                if (isAdminMode) {
-                    adminPanelHTML = `
-                        <div class="seller-info-panel">
-                            <h4>🔐 Informasi Penjual</h4>
-                            <div class="seller-meta">Produk: <b>${prod.name}</b></div>
-                            <div class="seller-meta">Provider: <b>${prod.provider}</b></div>
-                            <div class="seller-meta">Lokasi: <span>${prod.location}</span></div>
-                            <div class="seller-meta">Catatan: <i>${prod.note}</i></div>
-                        </div>
-                    `;
-                }
-
-                card.innerHTML = `
-                    <div>
-                        <span class="badge ${prod.class}">${prod.provider}</span>
-                        <div class="prod-provider">${prod.provider}</div>
-                        <div class="prod-name">${prod.name}</div>
-                        <div class="prod-details">
-                            <div><span class="label">Kuota:</span><span class="value">${prod.quota}</span></div>
-                            <div><span class="label">Masa Aktif:</span><span class="value">${prod.activePeriod}</span></div>
-                        </div>
-                        ${adminPanelHTML}
-                    </div>
-                    <div>
-                        <div class="prod-price">Rp ${prod.price.toLocaleString('id-ID')}</div>
-                        <button class="btn-btn btn-primary" onclick="addToCart(${prod.id})">🛒 Beli</button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        /* --- PROSEDUR OPERASIONAL KERANJANG BELANJA --- */
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            const existIndex = cart.findIndex(item => item.id === productId);
-
-            if (existIndex !== -1) {
-                cart[existIndex].quantity += 1;
-            } else {
-                cart.push({ ...product, quantity: 1 });
-            }
-            updateCartUI();
-        }
-
-        function removeFromCart(productId) {
-            cart = cart.filter(item => item.id !== productId);
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            const cartList = document.getElementById('cartList');
-            const cartEmpty = document.getElementById('cartEmpty');
-            const cartSummary = document.getElementById('cartSummary');
-            const totalPriceEl = document.getElementById('totalPrice');
-
-            if (cart.length === 0) {
-                cartEmpty.style.display = 'block';
-                cartSummary.style.display = 'none';
-                cartList.innerHTML = '';
-                return;
-            }
-
-            cartEmpty.style.display = 'none';
-            cartSummary.style.display = 'block';
-            cartList.innerHTML = '';
-
-            let total = 0;
-            cart.forEach(item => {
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
-
-                const li = document.createElement('li');
-                li.className = 'cart-item';
-                li.innerHTML = `
-                    <div class="cart-item-info">
-                        <div class="cart-item-title">${item.name}</div>
-                        <div class="cart-item-sub">${item.quantity}x @ Rp ${item.price.toLocaleString('id-ID')}</div>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <span class="value">Rp ${itemTotal.toLocaleString('id-ID')}</span>
-                        <button class="btn-delete" onclick="removeFromCart(${item.id})">❌</button>
-                    </div>
-                `;
-                cartList.appendChild(li);
-            });
-
-            totalPriceEl.innerText = `Rp ${total.toLocaleString('id-ID')}`;
-        }
-
-        /* --- FITUR EXPORT CLIPBOARD --- */
-        function copyOrder() {
-            if (cart.length === 0) return;
-
-            let textText = `*Halo Admin, Saya mau pesan kuota internet:*\n\n`;
-            let totalAll = 0;
-
-            cart.forEach((item, index) => {
-                const subTotal = item.price * item.quantity;
-                totalAll += subTotal;
-                textText += `${index + 1}. *${item.name}*\n`;
-                textText += `   Provider: ${item.provider}\n`;
-                textText += `   Jumlah: ${item.quantity}x\n`;
-                textText += `   Subtotal: Rp ${subTotal.toLocaleString('id-ID')}\n\n`;
-            });
-
-            textText += `---------------------------\n`;
-            textText += `*Total Pembayaran: Rp ${totalAll.toLocaleString('id-ID')}*\n\n`;
-            textText += `Mohon segera diproses ya, terima kasih!`;
-
-            navigator.clipboard.writeText(textText).then(() => {
-                alert("Daftar pesanan berhasil disalin! Silakan langsung paste (tempel) ke nomor WhatsApp admin.");
-            }).catch(err => {
-                alert("Gagal menyalin pesanan.");
-            });
-        }
-
-        // Bootstrapping awal
-        renderProducts();
     </script>
 </body>
+
 </html>
