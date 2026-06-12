@@ -600,8 +600,8 @@
                 `Nama Paket: ${item.name}\n` +
                 `Kuota: ${item.quota}\n` +
                 `Masa Aktif: ${item.activePeriod}\n` +
-                `Harga: Rp ${formatPrice}`;+
-                `Lokasi: ${item.location}`
+                `Harga: Rp ${formatPrice}`+
+                `Lokasi: ${item.location}`;
 
             const encodedText = encodeURIComponent(rawMessage);
             const waUrl = `https://api.whatsapp.com/send?phone=${NOMOR_WA}&text=${encodedText}`;
