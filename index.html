@@ -480,7 +480,7 @@
 
     <script>
         /* --- KONFIGURASI VERSI TERBARU --- */
-        const NOMOR_WA = "62812xxxxxxxx"; // Mengubah nomor dengan mudah lewat 1 variabel ini
+        const NOMOR_WA = "6289638435479"; // Mengubah nomor dengan mudah lewat 1 variabel ini
 
         /* --- MASTER DATA PRODUK --- */
         const products = [
@@ -600,7 +600,8 @@
                 `Nama Paket: ${item.name}\n` +
                 `Kuota: ${item.quota}\n` +
                 `Masa Aktif: ${item.activePeriod}\n` +
-                `Harga: Rp ${formatPrice}`;
+                `Harga: Rp ${formatPrice}`;+
+                `Lokasi: ${item.location}`
 
             const encodedText = encodeURIComponent(rawMessage);
             const waUrl = `https://api.whatsapp.com/send?phone=${NOMOR_WA}&text=${encodedText}`;
