@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image" href="gv.png" sizes="32x32">
-
-    <link rel="icon" type="image" href="gv.png" sizes="192x192">
-    <link rel="icon" type="image" href="gv.png" sizes="512x512">
-
-    <link rel="apple-touch-icon" href="gv.png">
-
+    <link rel="icon" type="image/png" href="gambar/logo-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="gambar/logo-192x192.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="gambar/logo-180x180.png">
     <title>KuotaKu</title>
     <style>
         /* --- RESET & VARIABLES --- */
@@ -125,8 +120,7 @@
             color: #4c1d95;
         }
 
-        .form-group input,
-        .form-group select {
+        .form-group input, .form-group select {
             padding: 0.4rem;
             border: 1px solid var(--admin-border);
             border-radius: 6px;
@@ -184,11 +178,19 @@
             border-color: var(--primary-color);
         }
 
-        /* --- SUB-FILTER KATEGORI --- */
-        .sub-filters {
+        /* --- SUB-FILTER KATEGORI & URUTAN HARGA --- */
+        .filters-row {
             max-width: 1200px;
             margin: 0 auto 1rem auto;
             padding: 0 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .sub-filters {
             display: flex;
             gap: 0.4rem;
         }
@@ -210,6 +212,17 @@
             border-color: var(--text-muted);
         }
 
+        .sort-select {
+            padding: 0.3rem 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--card-bg);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-main);
+            outline: none;
+        }
+
         /* --- MAIN LAYOUT --- */
         .container {
             max-width: 1200px;
@@ -224,7 +237,7 @@
             border-bottom: 2px solid var(--border-color);
         }
 
-        /* --- HORIZONTAL PRODUCT LIST (MOBILE OPTIMIZED) --- */
+        /* --- HORIZONTAL PRODUCT LIST --- */
         .product-grid {
             display: flex;
             flex-direction: column;
@@ -244,7 +257,6 @@
             transition: box-shadow 0.2s;
         }
 
-        /* Badge Provider Visual */
         .badge {
             display: inline-block;
             padding: 0.1rem 0.4rem;
@@ -255,45 +267,14 @@
             margin-bottom: 0.15rem;
         }
 
-        .telkomsel {
-            background: #fee2e2;
-            color: #ef4444;
-        }
-
-        .indosat {
-            background: #fef3c7;
-            color: #d97706;
-        }
-
-        .xl {
-            background: #dbeafe;
-            color: #2563eb;
-        }
-
-        .axis {
-            background: #f3e8ff;
-            color: #9333ea;
-        }
-
-        .three {
-            background: #f1f5f9;
-            color: #0f172a;
-        }
-
-        .smartfren {
-            background: #fce7f3;
-            color: #db2777;
-        }
-
-        .liveon {
-            background: #e0f2fe;
-            color: #0369a1;
-        }
-
-        .byu {
-            background: #e0f2fe;
-            color: #06b6d4;
-        }
+        .telkomsel { background: #fee2e2; color: #ef4444; }
+        .indosat { background: #fef3c7; color: #d97706; }
+        .xl { background: #dbeafe; color: #2563eb; }
+        .axis { background: #f3e8ff; color: #9333ea; }
+        .three { background: #f1f5f9; color: #0f172a; }
+        .smartfren { background: #fce7f3; color: #db2777; }
+        .liveon { background: #e0f2fe; color: #0369a1; }
+        .byu { background: #e0f2fe; color: #06b6d4; }
 
         .prod-info-main {
             display: flex;
@@ -351,7 +332,6 @@
             background-color: var(--success-hover);
         }
 
-        /* --- SELLER/ADMIN VIEW PANEL (FULL WIDTH UNDER CARD) --- */
         .seller-info-panel {
             grid-column: 1 / -1;
             background: #faf5ff;
@@ -372,30 +352,147 @@
             color: #4c1d95;
         }
 
-        /* Layout Responsif untuk HP Sangat Kecil agar Tidak Saling Bertabrakan */
+        /* --- MODAL INPUT NOMOR TUJUAN --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            align-items: center; 
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .modal-content {
+            background: #fff; 
+            border-radius: 12px; 
+            padding: 1.5rem; 
+            width: 100%; 
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp { 
+            from { transform: translateY(20px); opacity:0; } 
+            to { transform: translateY(0); opacity:1; } 
+        }
+
+        .modal-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .modal-body p {
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .input-wrapper {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .input-wrapper label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .input-wrapper input {
+            padding: 0.6rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            width: 100%;
+            outline: none;
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .error-msg {
+            color: var(--danger-color);
+            font-size: 0.75rem;
+            display: none;
+            font-weight: 600;
+        }
+
+        .modal-actions {
+            display: flex; 
+            gap: 0.5rem; 
+            justify-content: flex-end; 
+            margin-top: 1.5rem;
+        }
+
+        .btn-cancel, .btn-confirm { 
+            padding: 0.5rem 1rem; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-weight: 600; 
+            font-size: 0.85rem;
+        }
+
+        .btn-cancel { 
+            background: #e2e8f0; 
+            color: #334155; 
+        }
+
+        .btn-confirm { 
+            background: var(--success-color); 
+            color: #fff; 
+        }
+
+        /* --- TOAST NOTIFICATION --- */
+        .toast {
+            visibility: hidden;
+            min-width: 280px;
+            background-color: #334155;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 12px 16px;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: opacity 0.3s, bottom 0.3s;
+        }
+
+        .toast.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 50px;
+        }
+
         @media (max-width: 400px) {
             .product-card {
                 grid-template-columns: 2fr 1.3fr 1.1fr;
                 padding: 0.5rem;
                 gap: 0.3rem;
             }
-
-            .prod-name {
-                font-size: 0.8rem;
-            }
-
-            .prod-price {
-                font-size: 0.85rem;
-            }
-
-            .btn-buy {
-                font-size: 0.75rem;
-                padding: 0.4rem;
-            }
+            .prod-name { font-size: 0.8rem; }
+            .prod-price { font-size: 0.85rem; }
+            .btn-buy { font-size: 0.75rem; padding: 0.4rem; }
         }
     </style>
 </head>
-
 <body>
 
     <header>
@@ -404,6 +501,7 @@
         <p>List harga kuota internet terlengkap. Sekali klik langsung order ke WhatsApp!</p>
     </header>
 
+    <!-- ADMIN PANEL FORM -->
     <div class="admin-form-container" id="adminFormContainer">
         <div class="admin-card-form">
             <h3>🛠️ Panel Input Paket Data Baru (Khusus Penjual)</h3>
@@ -459,28 +557,66 @@
         </div>
     </div>
 
+    <!-- NAVIGATION TABS -->
     <div class="tabs-container">
         <div class="tabs-wrapper" id="dynamicTabsWrapper">
+            <!-- Diisi otomatis oleh JavaScript -->
         </div>
     </div>
 
-    <div class="sub-filters">
-        <button class="sub-btn active" id="subAll" onclick="filterCategory('all')">Semua Durasi</button>
-        <button class="sub-btn" id="subHarian" onclick="filterCategory('harian')">⏳ Harian</button>
-        <button class="sub-btn" id="subMingguan" onclick="filterCategory('mingguan')">🗓️ Mingguan/Bulanan</button>
+    <!-- SUB FILTERS & SORTING HARGA -->
+    <div class="filters-row">
+        <div class="sub-filters">
+            <button class="sub-btn active" id="subAll" onclick="filterCategory('all')">Semua Durasi</button>
+            <button class="sub-btn" id="subHarian" onclick="filterCategory('harian')">⏳ Harian</button>
+            <button class="sub-btn" id="subMingguan" onclick="filterCategory('mingguan')">🗓️ Mingguan/Bulanan</button>
+        </div>
+        <div>
+            <select id="sortPrice" class="sort-select" onchange="changeSort(this.value)">
+                <option value="default">Urutan Bawaan</option>
+                <option value="asc">Harga Termurah</option>
+                <option value="desc">Harga Termahal</option>
+            </select>
+        </div>
     </div>
 
+    <!-- MAIN CONTAINER -->
     <main class="container">
         <section>
             <h2 id="sectionTitle">📶 Semua Paket Internet</h2>
             <div class="product-grid" id="productGrid">
+                <!-- Diisi otomatis oleh JavaScript -->
             </div>
         </section>
     </main>
 
+    <!-- MODAL INPUT NOMOR -->
+    <div id="buyModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-title">Konfirmasi Pembelian</div>
+            <div class="modal-body">
+                <p id="modalPackageName">Nama Paket: -</p>
+                <p id="modalPackagePrice">Harga: -</p>
+                
+                <div class="input-wrapper">
+                    <label for="targetNumber">Nomor Tujuan (Opsional)</label>
+                    <input type="number" id="targetNumber" placeholder="Contoh: 0812... atau 628...">
+                    <span id="numberError" class="error-msg">Nomor harus diawali 08 atau 62.</span>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeModal()">Batal</button>
+                <button class="btn-confirm" onclick="processBuy()">Lanjut ke WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="toast">✅ Paket berhasil dipilih, mengarahkan ke WhatsApp...</div>
+
     <script>
-        /* --- KONFIGURASI VERSI TERBARU --- */
-        const NOMOR_WA = "6289638435479"; // Mengubah nomor dengan mudah lewat 1 variabel ini
+        /* --- KONFIGURASI --- */
+        const NOMOR_WA = "6289638435479"; // Ubah dengan nomor WA Penjual
 
         /* --- MASTER DATA PRODUK --- */
         const products = [
@@ -492,62 +628,34 @@
             { id: 5, name: "Telkomsel Mini Data 5GB", provider: "Telkomsel", type: "harian", quota: "5 GB", activePeriod: "5 Hari", price: 21000, class: "telkomsel", location: "Isi Ulang Data > Paket Mini Data > harian", note: "Bisa ditembak via digipos." },
             { id: 6, name: "Telkomsel Mini Data 7GB", provider: "Telkomsel", type: "harian", quota: "7 GB", activePeriod: "3 Hari", price: 29000, class: "telkomsel", location: "Isi Ulang Data > Paket Mini Data > harian", note: "Paling laris untuk streaming harian." },
             { id: 7, name: "Telkomsel Mini Data 8GB", provider: "Telkomsel", type: "harian", quota: "8 GB", activePeriod: "2 Hari", price: 30000, class: "telkomsel", location: "Isi Ulang Data > Paket Mini Data > harian", note: "Pengisian instan." },
-
+            
             // Telkomsel Mingguan / Bulanan
             { id: 8, name: "Telkomsel Mini Data 1GB", provider: "Telkomsel", type: "mingguan", quota: "1 GB", activePeriod: "30 Hari", price: 16000, class: "telkomsel", location: "Isi Ulang Data > Paket Mini Data > Mingguan", note: "Masa aktif panjang harga hemat." },
             { id: 9, name: "Telkomsel Mini Data 3GB", provider: "Telkomsel", type: "mingguan", quota: "3 GB", activePeriod: "7 Hari", price: 18000, class: "telkomsel", location: "Isi Ulang Data > Paket Mini Data > Mingguan", note: "Paket mingguan standar." },
             { id: 10, name: "Telkomsel Mini Data 7GB", provider: "Telkomsel", type: "mingguan", quota: "7 GB", activePeriod: "7 Hari", price: 28000, class: "telkomsel", location: "Isi Ulang Data > Paket Mini Data > Mingguan", note: "Termasuk kuota aplikasi chat." },
             { id: 11, name: "Telkomsel Mini Data 1.5GB", provider: "Telkomsel", type: "mingguan", quota: "1.5 GB", activePeriod: "14 Hari", price: 28000, class: "telkomsel", location: "Isi Ulang Data > Paket Mini Data > Mingguan", note: "Sering dipakai anak sekolahan." },
-
+            
             // AXIS
             { id: 40, name: "Aigo Mini 5GB + Bonus", provider: "Axis", type: "harian", quota: "5 GB", activePeriod: "1 Hari", price: 8000, class: "axis", location: "Aigo Kuota Mini > 1-3hari", note: "Paket reguler non-lokal." },
             { id: 41, name: "Aigo Mini 15GB + Bonus", provider: "Axis", type: "harian", quota: "15 GB", activePeriod: "1 Hari", price: 10000, class: "axis", location: "Aigo Kuota Mini > 1-3hari", note: "Paket reguler non-lokal." },
             { id: 42, name: "Aigo Mini 5GB + Bonus", provider: "Axis", type: "harian", quota: "5 GB", activePeriod: "2 Hari", price: 10000, class: "axis", location: "Aigo Kuota Mini > 1-3hari", note: "Paket reguler non-lokal." },
             { id: 43, name: "Aigo Mini 5GB + Bonus", provider: "Axis", type: "harian", quota: "5 GB", activePeriod: "3 Hari", price: 12000, class: "axis", location: "Aigo Kuota Mini > 1-3hari", note: "Paket reguler non-lokal." },
-            { id: 44, name: "Aigo Mini 8.5GB + Bonus", provider: "Axis", type: "harian", quota: "8.5 GB", activePeriod: "3 Hari", price: 15000, class: "axis", location: "Aigo Kuota Mini > 1-3hari", note: "Paket reguler non-lokal." },
-            { id: 45, name: "Aigo Mini 12.5GB + Bonus", provider: "Axis", type: "harian", quota: "12.5 GB", activePeriod: "3 Hari", price: 18000, class: "axis", location: "Aigo Kuota Mini > 1-3hari", note: "Paket reguler non-lokal." },
-            { id: 46, name: "Aigo Mini 3GB + Bonus", provider: "Axis", type: "mingguan", quota: "3 GB", activePeriod: "7 Hari", price: 15000, class: "axis", location: "Aigo Kuota Mini > 7hari", note: "Paket reguler non-lokal." },
-            { id: 47, name: "Aigo Mini 4GB + Bonus", provider: "Axis", type: "mingguan", quota: "4 GB", activePeriod: "7 Hari", price: 18000, class: "axis", location: "Aigo Kuota Mini > 7hari", note: "Paket reguler non-lokal." },
-            { id: 48, name: "Aigo Mini 6GB + Bonus", provider: "Axis", type: "mingguan", quota: "6 GB", activePeriod: "7 Hari", price: 20000, class: "axis", location: "Aigo Kuota Mini > 7hari", note: "Paket reguler non-lokal." },
-            { id: 49, name: "Aigo Mini 10GB + Bonus", provider: "Axis", type: "mingguan", quota: "10 GB", activePeriod: "7 Hari", price: 25000, class: "axis", location: "Aigo Kuota Mini > 7hari", note: "Paket reguler non-lokal." },
-
+            
             // Tri
             { id: 50, name: "TRI 6GB", provider: "Three", type: "harian", quota: "6GB", activePeriod: "1 Hari", price: 8000, class: "three", location: "paket Happy", note: "Full kuota 24 jam nonstop." },
             { id: 51, name: "TRI 10GB", provider: "Three", type: "harian", quota: "10GB", activePeriod: "1 Hari", price: 10000, class: "three", location: "paket Happy", note: "Full kuota 24 jam nonstop." },
-            { id: 52, name: "TRI 7GB", provider: "Three", type: "harian", quota: "7GB", activePeriod: "2 Hari", price: 11000, class: "three", location: "paket Happy", note: "Full kuota 24 jam nonstop." },
-            { id: 54, name: "TRI 8GB", provider: "Three", type: "harian", quota: "8GB", activePeriod: "3 Hari", price: 14000, class: "three", location: "paket Happy", note: "Full kuota 24 jam nonstop." },
-            { id: 55, name: "TRI 10GB", provider: "Three", type: "harian", quota: "10GB", activePeriod: "5 Hari", price: 18000, class: "three", location: "paket Happy", note: "Full kuota 24 jam nonstop." },
-            { id: 56, name: "TRI 11GB", provider: "Three", type: "harian", quota: "11GB", activePeriod: "5 Hari", price: 22000, class: "three", location: "paket Happy", note: "Full kuota 24 jam nonstop." },
             { id: 57, name: "TRI 3GB", provider: "Three", type: "mingguan", quota: "3GB", activePeriod: "28 Hari", price: 22000, class: "three", location: "paket Happy", note: "Full kuota 24 jam nonstop." },
-            { id: 58, name: "TRI 11GB", provider: "Three", type: "mingguan", quota: "11GB", activePeriod: "28 Hari", price: 36000, class: "three", location: "paket Happy", note: "Full kuota 24 jam nonstop." },
-
-            // Smartfren
-            { id: 60, name: "Smartfren Unlimited Nonstop", provider: "Smartfren", type: "harian", quota: "45 GB", activePeriod: "30 Hari", price: 70000, class: "smartfren", location: "MySmartfren > Unlimited Nonstop", note: "Tetap bisa internetan meski kuota habis." },
-            { id: 61, name: "Smartfren Unlimited Nonstop", provider: "Smartfren", type: "mingguan", quota: "45 GB", activePeriod: "30 Hari", price: 70000, class: "smartfren", location: "MySmartfren > Unlimited Nonstop", note: "Tetap bisa internetan meski kuota habis." },
 
             // Indosat
             { id: 70, name: "Indosat Freedom Mini 1GB", provider: "Indosat", type: "harian", quota: "1GB", activePeriod: "2 Hari", price: 8000, class: "indosat", location: "Isi Ulang > Fredoom Mini Data > All Nasional", note: "Full kuota 24 jam nonstop." },
-            { id: 71, name: "Indosat Freedom Mini 5GB", provider: "Indosat", type: "harian", quota: "5GB", activePeriod: "1 Hari", price: 8000, class: "indosat", location: "Isi Ulang > Fredoom Mini Data > All Nasional", note: "Full kuota 24 jam nonstop." },
-            { id: 72, name: "Indosat Freedom Mini 7GB", provider: "Indosat", type: "harian", quota: "7GB", activePeriod: "1 Hari", price: 10000, class: "indosat", location: "Isi Ulang > Fredoom Mini Data > All Nasional", note: "Full kuota 24 jam nonstop." },
-            { id: 73, name: "Indosat Freedom Mini 6GB", provider: "Indosat", type: "harian", quota: "6GB", activePeriod: "2 Hari", price: 11000, class: "indosat", location: "Isi Ulang > Fredoom Mini Data > All Nasional", note: "Full kuota 24 jam nonstop." },
-            { id: 74, name: "Indosat Freedom Mini 9GB", provider: "Indosat", type: "harian", quota: "9GB", activePeriod: "1 Hari", price: 11000, class: "indosat", location: "Isi Ulang > Fredoom Mini Data > All Nasional", note: "Full kuota 24 jam nonstop." },
-            { id: 75, name: "Indosat Freedom Mini 4GB", provider: "Indosat", type: "harian", quota: "4GB", activePeriod: "5 Hari", price: 15000, class: "indosat", location: "Isi Ulang > Fredoom Mini Data > All Nasional", note: "Full kuota 24 jam nonstop." },
-            { id: 76, name: "PROMO Indosat Freedom 4GB", provider: "Indosat", type: "mingguan", quota: "4GB", activePeriod: "28 Hari", price: 24000, class: "indosat", location: "Isi Ulang > Fredoom Data > Mobo", note: "Full kuota 24 jam nonstop." },
-            { id: 77, name: "Indosat Freedom 3GB", provider: "Indosat", type: "mingguan", quota: "3GB", activePeriod: "20 Hari", price: 24000, class: "indosat", location: "Isi Ulang > Fredoom Data > Mobo", note: "Full kuota 24 jam nonstop." },
-            { id: 78, name: "Indosat Freedom 3GB", provider: "Indosat", type: "mingguan", quota: "3GB", activePeriod: "28 Hari", price: 29000, class: "indosat", location: "Isi Ulang > Fredoom Data > Mobo", note: "Full kuota 24 jam nonstop." },
-
-            // XL
-            { id: 80, name: "XL Xtra Combo 20GB", provider: "XL", type: "harian", quota: "20 GB", activePeriod: "30 Hari", price: 55000, class: "xl", location: "myXL > Xtra Combo Flex", note: "Ada bonus pilihan kuota aplikasi." },
-            { id: 81, name: "XL Xtra Combo 20GB", provider: "XL", type: "mingguan", quota: "20 GB", activePeriod: "30 Hari", price: 55000, class: "xl", location: "myXL > Xtra Combo Flex", note: "Ada bonus pilihan kuota aplikasi." },
-
-            // By.U
-            { id: 90, name: "By.U Yang Bikin Nagih", provider: "ByU", quota: "12 GB", type: "harian", activePeriod: "30 Hari", price: 30000, class: "byu", location: "by.U App > Build Your Plan", note: "Jaringan ikut infrastruktur Telkomsel." },
-            { id: 91, name: "By.U Yang Bikin Nagih", provider: "ByU", quota: "12 GB", type: "mingguan", activePeriod: "30 Hari", price: 30000, class: "byu", location: "by.U App > Build Your Plan", note: "Jaringan ikut infrastruktur Telkomsel." }
+            { id: 76, name: "PROMO Indosat Freedom 4GB", provider: "Indosat", type: "mingguan", quota: "4GB", activePeriod: "28 Hari", price: 24000, class: "indosat", location: "Isi Ulang > Fredoom Data > Mobo", note: "Full kuota 24 jam nonstop." }
         ];
 
         let currentFilter = 'all';
         let currentCategory = 'all';
+        let currentSort = 'default';
         let isAdminMode = false;
+        let selectedProductId = null; // Menyimpan ID paket yg dipilih di Modal
 
         // Inisialisasi Aplikasi saat Load Pertama Kali
         window.addEventListener('DOMContentLoaded', () => {
@@ -558,8 +666,6 @@
         /* --- DINAMIS PROVIDER MENUS GENERATOR --- */
         function renderTabs() {
             const wrapper = document.getElementById('dynamicTabsWrapper');
-
-            // Mendapatkan daftar nama provider unik dari data object products secara otomatis
             const uniqueProviders = ['all'];
             products.forEach(p => {
                 if (!uniqueProviders.includes(p.provider)) {
@@ -567,7 +673,6 @@
                 }
             });
 
-            // Map penyebutan nama display agar rapi di UI
             const providerNames = {
                 'all': '🔥 Semua',
                 'Telkomsel': '🔴 Telkomsel',
@@ -587,39 +692,98 @@
             }).join('');
         }
 
-        /* --- LOGIKA REDIRECT AUTOMATIC KE WHATSAPP --- */
-        function buyDirectToWhatsApp(id) {
+        /* --- LOGIKA MODAL PEMBELIAN & VALIDASI NOMOR --- */
+        function openBuyModal(id) {
+            selectedProductId = id;
             const item = products.find(p => p.id === id);
             if (!item) return;
 
-            const formatPrice = item.price.toLocaleString('id-ID');
+            // Set text di Modal
+            document.getElementById('modalPackageName').innerText = `Nama Paket: ${item.name}`;
+            document.getElementById('modalPackagePrice').innerText = `Harga: Rp ${item.price.toLocaleString('id-ID')}`;
+            
+            // Reset input form
+            document.getElementById('targetNumber').value = '';
+            document.getElementById('numberError').style.display = 'none';
 
-            // Format Pesan Teks Sesuai Ketentuan
-            const rawMessage = `Halo, saya ingin membeli paket berikut:\n` +
-                `Provider: ${item.provider}\n` +
-                `Nama Paket: ${item.name}\n` +
-                `Kuota: ${item.quota}\n` +
-                `Masa Aktif: ${item.activePeriod}\n` +
-                `Harga: Rp ${formatPrice}\n`+
-                `Lokasi: ${item.location}`;
-
-            const encodedText = encodeURIComponent(rawMessage);
-            const waUrl = `https://api.whatsapp.com/send?phone=${NOMOR_WA}&text=${encodedText}`;
-
-            // Buka tab WhatsApp Baru
-            window.open(waUrl, '_blank');
+            // Tampilkan modal
+            document.getElementById('buyModal').style.display = 'flex';
         }
 
-        /* --- RENDER DAFTAR PRODUK (LAYOUT HORIZONTAL CARD) --- */
+        function closeModal() {
+            document.getElementById('buyModal').style.display = 'none';
+            selectedProductId = null;
+        }
+
+        function processBuy() {
+            const numInput = document.getElementById('targetNumber').value.trim();
+            const errorMsg = document.getElementById('numberError');
+
+            // Validasi Nomor jika diisi (Hanya 08 atau 62)
+            if (numInput !== '') {
+                if (!numInput.startsWith('08') && !numInput.startsWith('62')) {
+                    errorMsg.style.display = 'block';
+                    return; // Hentikan proses jika nomor salah
+                }
+            }
+
+            // Jika valid / dikosongkan
+            errorMsg.style.display = 'none';
+            closeModal();
+            showToast();
+
+            // Eksekusi Generate Link WhatsApp (Delay 1.5 detik agar toast terbaca)
+            setTimeout(() => {
+                const item = products.find(p => p.id === selectedProductId);
+                const formatPrice = item.price.toLocaleString('id-ID');
+                
+                // Format Pesan
+                let rawMessage = `Halo, saya ingin membeli paket berikut:\n` +
+                                 `Provider: ${item.provider}\n` +
+                                 `Nama Paket: ${item.name}\n` +
+                                 `Kuota: ${item.quota}\n` +
+                                 `Masa Aktif: ${item.activePeriod}\n` +
+                                 `Harga: Rp ${formatPrice}\n` +
+                                 `Lokasi: ${item.location}`;
+                
+                // Tambahkan Nomor Tujuan jika tidak kosong
+                if (numInput !== '') {
+                    rawMessage += `\nNomor Tujuan: ${numInput}`;
+                }
+
+                const encodedText = encodeURIComponent(rawMessage);
+                const waUrl = `https://api.whatsapp.com/send?phone=${NOMOR_WA}&text=${encodedText}`;
+                
+                window.open(waUrl, '_blank');
+            }, 1500);
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.className = "toast show";
+            setTimeout(() => {
+                toast.className = toast.className.replace("show", "");
+            }, 2000); // Hilang setelah 2 detik
+        }
+
+        /* --- RENDER DAFTAR PRODUK --- */
         function renderProducts() {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
 
-            const filtered = products.filter(p => {
+            // Filter Berdasarkan Provider & Kategori
+            let filtered = products.filter(p => {
                 const matchProv = (currentFilter === 'all' || p.provider === currentFilter);
                 const matchCat = (currentCategory === 'all' || p.type === currentCategory);
                 return matchProv && matchCat;
             });
+
+            // Pengurutan (Sorting) Harga
+            if (currentSort === 'asc') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (currentSort === 'desc') {
+                filtered.sort((a, b) => b.price - a.price);
+            }
 
             if (filtered.length === 0) {
                 grid.innerHTML = `<div style="text-align:center; padding:2rem; color:var(--text-muted); font-size:0.9rem;">Paket tidak ditemukan.</div>`;
@@ -630,7 +794,6 @@
                 const card = document.createElement('div');
                 card.className = 'product-card';
 
-                // Buat Tampilan Detail Penjual Aktif jika isAdminMode = true
                 let adminPanelHtml = '';
                 if (isAdminMode) {
                     adminPanelHtml = `
@@ -653,7 +816,7 @@
                         <div class="prod-active-period">⌛ ${p.activePeriod}</div>
                     </div>
                     <div>
-                        <button class="btn-buy" onclick="buyDirectToWhatsApp(${p.id})">Beli</button>
+                        <button class="btn-buy" onclick="openBuyModal(${p.id})">Beli</button>
                     </div>
                     ${adminPanelHtml}
                 `;
@@ -661,30 +824,32 @@
             });
         }
 
-        /* --- CONTROLLER FILTER SYSTEM --- */
+        /* --- CONTROLLER FILTER & SORTING --- */
         function filterProvider(prov) {
             currentFilter = prov;
-
-            // Update active state tab buttons
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             const activeTab = document.getElementById(`tab-${prov}`);
             if (activeTab) activeTab.classList.add('active');
 
-            // Update Section Title
             const providerTitles = { 'all': 'Semua Paket Internet' };
             document.getElementById('sectionTitle').innerText = `📶 ${providerTitles[prov] || 'Paket ' + prov}`;
-
+            
             renderProducts();
         }
 
         function filterCategory(cat) {
             currentCategory = cat;
             document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
-
+            
             if (cat === 'all') document.getElementById('subAll').classList.add('active');
             if (cat === 'harian') document.getElementById('subHarian').classList.add('active');
             if (cat === 'mingguan') document.getElementById('subMingguan').classList.add('active');
 
+            renderProducts();
+        }
+
+        function changeSort(val) {
+            currentSort = val;
             renderProducts();
         }
 
@@ -723,12 +888,11 @@
             const price = parseInt(document.getElementById('pPrice').value);
             const location = document.getElementById('pLocation').value;
             const note = document.getElementById('pNote').value;
-
-            // Penentuan CSS Class Badge Otomatis
+            
             let providerClass = provider.toLowerCase();
-            if (provider === "XL") providerClass = "xl";
-            if (provider === "ByU") providerClass = "byu";
-            if (provider === "LiveOn") providerClass = "liveon";
+            if(provider === "XL") providerClass = "xl";
+            if(provider === "ByU") providerClass = "byu";
+            if(provider === "LiveOn") providerClass = "liveon";
 
             const newProduct = {
                 id: Date.now(),
@@ -738,12 +902,11 @@
 
             products.push(newProduct);
             alert(`Paket "${name}" Berhasil ditambahkan ke Aplikasi!`);
-
+            
             document.getElementById('newProductForm').reset();
-            renderTabs(); // Refresh tab bar jika ada provider baru
+            renderTabs(); 
             renderProducts();
         }
     </script>
 </body>
-
 </html>
