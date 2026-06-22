@@ -726,7 +726,7 @@
                     return; // Hentikan proses jika nomor salah
                 }
             }
-
+            const productId = selectedProductId;
             // Jika valid / dikosongkan
             errorMsg.style.display = 'none';
             closeModal();
@@ -734,7 +734,7 @@
 
             // Eksekusi Generate Link WhatsApp (Delay 1.5 detik agar toast terbaca)
             setTimeout(() => {
-                const item = products.find(p => p.id === selectedProductId);
+                const item = products.find(p => p.id === productId);
                 const formatPrice = item.price.toLocaleString('id-ID');
                 
                 // Format Pesan
