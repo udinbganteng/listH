@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="gambar/logo-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="gambar/logo-192x192.png" sizes="192x192">
-    <link rel="apple-touch-icon" href="gambar/logo-180x180.png">
+    <link class="apple-touch-icon" href="gambar/logo-180x180.png">
     <title>KuotaKu</title>
     <style>
         /* --- RESET & VARIABLES --- */
@@ -648,7 +648,19 @@
 
             // Indosat
             { id: 70, name: "Indosat Freedom Mini 1GB", provider: "Indosat", type: "harian", quota: "1GB", activePeriod: "2 Hari", price: 8000, class: "indosat", location: "Isi Ulang > Fredoom Mini Data > All Nasional", note: "Full kuota 24 jam nonstop." },
-            { id: 76, name: "PROMO Indosat Freedom 4GB", provider: "Indosat", type: "mingguan", quota: "4GB", activePeriod: "28 Hari", price: 24000, class: "indosat", location: "Isi Ulang > Fredoom Data > Mobo", note: "Full kuota 24 jam nonstop." }
+            { id: 76, name: "PROMO Indosat Freedom 4GB", provider: "Indosat", type: "mingguan", quota: "4GB", activePeriod: "28 Hari", price: 24000, class: "indosat", location: "Isi Ulang > Fredoom Data > Mobo", note: "Full kuota 24 jam nonstop." },
+
+            // XL Axiata (BARU)
+            { id: 80, name: "Flex Mini 10GB", provider: "XL", type: "harian", quota: "10GB", activePeriod: "1 Hari", price: 10000, class: "xl", location: "Isi Ulang > XL Combo Flex > Mini", note: "Bonus opsi kuota lokal aplikasi." },
+            { id: 81, name: "Flex Mini 6GB", provider: "XL", type: "harian", quota: "6GB", activePeriod: "2 Hari", price: 11000, class: "xl", location: "Isi Ulang > XL Combo Flex > Mini", note: "Bisa inject langsung via h2h." },
+
+            // Smartfren (BARU)
+            { id: 90, name: "Smart 1GB ALL", provider: "Smartfren", type: "harian", quota: "1GB", activePeriod: "3 Hari", price: 7000, class: "smartfren", location: "Isi Ulang > Mini Data Smartfren", note: "Murah meriah, cocok untuk main game." },
+            { id: 91, name: "Smart 4GB ALL", provider: "Smartfren", type: "harian", quota: "4GB", activePeriod: "3 Hari", price: 10000, class: "smartfren", location: "Isi Ulang > Mini Data Smartfren", note: "Murah meriah, cocok untuk main game." },
+
+            // By.U (BARU)
+            { id: 100, name: "ByU 2GB", provider: "ByU", type: "harian", quota: "2 GB", activePeriod: "1 Hari", price: 8000, class: "byu", location: "Paket Data by U > Byu Data Harian >", note: "Sinyal Telkomsel 100% aman." },
+            { id: 101, name: "ByU 10GB", provider: "ByU", type: "harian", quota: "10 GB", activePeriod: "1 Hari", price: 12000, class: "byu", location: "Paket Data by U > Byu Data Harian >", note: "Paling dicari anak sekolah/kuliah." }
         ];
 
         let currentFilter = 'all';
