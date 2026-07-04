@@ -8,20 +8,22 @@ import {
     updateDoc,
     onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+
 
 /* --- KONFIGURASI UMUM --- */
 const NOMOR_WA = "6289638435479"; // Ubah dengan nomor WA Penjual
 
 // Konfigurasi Firebase Modular
 const firebaseConfig = {
-    apiKey: "AIzaSy....",
-    authDomain: "udin-kuota.firebaseapp.com",
-    projectId: "udin-kuota",
-    storageBucket: "udin-kuota.firebasestorage.app",
-    messagingSenderId: "634570933178",
-    appId: "1:634570933178:web:91aabb192e9f51d90a1383"
+  apiKey: "AIzaSyD8iht3iWBvxTcrKy_Ks9663qsPOodQ5Nw",
+  authDomain: "udin-kuota.firebaseapp.com",
+  projectId: "udin-kuota",
+  storageBucket: "udin-kuota.firebasestorage.app",
+  messagingSenderId: "634570933178",
+  appId: "1:634570933178:web:91aabb192e9f51d90a1383"
 };
-
 // Inisialisasi Firebase & Firestore
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -72,6 +74,44 @@ let currentCategory = 'all';
 let currentSort = 'default';
 let isAdminMode = false;
 let selectedProductId = null;
+
+
+const auth = getAuth();
+
+// 1. Fungsi Login
+async function loginAdmin() {
+    const email = document.getElementById('email').value;
+    const pass = document.getElementById('password').value;
+    try {
+        await signInWithEmailAndPassword(auth, email, pass);
+        document.getElementById('loginError').innerText = "";
+    } catch (error) {
+        document.getElementById('loginError').innerText = "Gagal login: Periksa email/password.";
+    }
+}
+
+// 2. Auth State Listener (Auto Check)
+onAuthStateChanged(auth, (user) => {
+    const adminControls = document.getElementById('adminControls');
+    const loginPage = document.getElementById('loginPage');
+    
+    if (user) {
+        // User logged in
+        loginPage.style.display = 'none';
+        adminControls.style.display = 'block';
+        isAdminMode = true; // Variabel yang digunakan untuk render kartu
+    } else {
+        // User logged out
+        loginPage.style.display = 'block';
+        adminControls.style.display = 'none';
+        isAdminMode = false;
+    }
+    renderProducts(); // Refresh UI
+});
+
+function logoutAdmin() {
+    signOut(auth);
+}
 
 /* ========================================================
    INISIALISASI DATA & LISTENER REALTIME FIRESTORE (MODULAR)
@@ -334,7 +374,7 @@ async function addNewProduct(event) {
         activePeriod, price, class: providerClass, location, note
     };
 
-    products.push(newProduct);
+    // products.push(newProduct);
 
     // Simpan ke Firestore Modular
     const strId = newProduct.id.toString();
