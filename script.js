@@ -17,12 +17,12 @@ const NOMOR_WA = "6289638435479"; // Ubah dengan nomor WA Penjual
 
 // Konfigurasi Firebase Modular
 const firebaseConfig = {
-  apiKey: "AIzaSyD8iht3iWBvxTcrKy_Ks9663qsPOodQ5Nw",
-  authDomain: "udin-kuota.firebaseapp.com",
-  projectId: "udin-kuota",
-  storageBucket: "udin-kuota.firebasestorage.app",
-  messagingSenderId: "634570933178",
-  appId: "1:634570933178:web:91aabb192e9f51d90a1383"
+    apiKey: "AIzaSyD8iht3iWBvxTcrKy_Ks9663qsPOodQ5Nw",
+    authDomain: "udin-kuota.firebaseapp.com",
+    projectId: "udin-kuota",
+    storageBucket: "udin-kuota.firebasestorage.app",
+    messagingSenderId: "634570933178",
+    appId: "1:634570933178:web:91aabb192e9f51d90a1383"
 };
 // Inisialisasi Firebase & Firestore
 const app = initializeApp(firebaseConfig);
@@ -85,6 +85,9 @@ async function loginAdmin() {
     try {
         await signInWithEmailAndPassword(auth, email, pass);
         document.getElementById('loginError').innerText = "";
+        document.getElementById('email').value = "";
+        document.getElementById('password').value = "";
+        document.getElementById('loginError').innerText = "";
     } catch (error) {
         document.getElementById('loginError').innerText = "Gagal login: Periksa email/password.";
     }
@@ -94,23 +97,30 @@ async function loginAdmin() {
 onAuthStateChanged(auth, (user) => {
     const adminControls = document.getElementById('adminControls');
     const loginPage = document.getElementById('loginPage');
-    
+
     if (user) {
-        // User logged in
         loginPage.style.display = 'none';
         adminControls.style.display = 'block';
-        isAdminMode = true; // Variabel yang digunakan untuk render kartu
+
+        isAdminMode = true;
     } else {
-        // User logged out
         loginPage.style.display = 'block';
         adminControls.style.display = 'none';
+
         isAdminMode = false;
     }
-    renderProducts(); // Refresh UI
+
+    setTimeout(() => {
+        renderProducts(); // kasih delay biar DOM ready
+    }, 50);
 });
 
 function logoutAdmin() {
     signOut(auth);
+
+    document.getElementById('email').value = "";
+    document.getElementById('password').value = "";
+    document.getElementById('loginError').innerText = "";
 }
 
 /* ========================================================
@@ -401,6 +411,9 @@ window.closeModal = closeModal;
 window.processBuy = processBuy;
 window.toggleStock = toggleStock;
 window.addNewProduct = addNewProduct;
+
+window.loginAdmin = loginAdmin;
+window.logoutAdmin = logoutAdmin;
 
 // Inisialisasi saat load DOM
 window.addEventListener('DOMContentLoaded', () => {
