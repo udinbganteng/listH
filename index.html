@@ -6,11 +6,7 @@
     <link rel="icon" type="image/png" href="gambar/logo-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="gambar/logo-192x192.png" sizes="192x192">
     <link class="apple-touch-icon" href="gambar/logo-180x180.png">
-    <title>KuotaKu</title>
-    
-    <!-- 1. Import Firebase SDK (Compat Version) -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <title>KuotaKu - Warung Udin</title>
 
     <style>
         /* --- RESET & VARIABLES --- */
@@ -262,7 +258,7 @@
             transition: box-shadow 0.2s, opacity 0.3s ease;
         }
 
-        /* FITUR BARU: Efek meredup saat stok habis */
+        /* Efek meredup saat stok habis */
         .product-card.out-of-stock {
             opacity: 0.65;
             filter: grayscale(10%);
@@ -287,7 +283,6 @@
         .liveon { background: #e0f2fe; color: #0369a1; }
         .byu { background: #e0f2fe; color: #06b6d4; }
 
-        /* FITUR BARU: Warna badge stok habis */
         .badge-stok-habis {
             background: var(--danger-color);
             color: white;
@@ -350,7 +345,6 @@
             background-color: var(--success-hover);
         }
 
-        /* FITUR BARU: Style untuk tombol yang dinonaktifkan (stok habis) */
         .btn-disabled {
             background-color: #94a3b8 !important;
             cursor: not-allowed !important;
@@ -365,7 +359,6 @@
             font-size: 0.75rem;
         }
 
-        /* FITUR BARU: Container checkbox di mode penjual */
         .stock-checkbox-container {
             margin-bottom: 0.6rem;
             padding-bottom: 0.4rem;
@@ -659,7 +652,11 @@
     <!-- TOAST NOTIFICATION -->
     <div id="toast" class="toast">✅ Paket berhasil dipilih, mengarahkan ke WhatsApp...</div>
 
-    
-    <script src="script.js"></script>
+    <!-- ========================================================
+         SCRIPT: FIREBASE MODULAR SDK + LOGIKA APLIKASI
+         ======================================================== -->
+    <script type="module" src="script.js">
+
+    </script>
 </body>
 </html>
