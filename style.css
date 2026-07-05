@@ -31,6 +31,7 @@ body {
 
 /* --- HEADER --- */
 header {
+    position: relative;
     background: linear-gradient(135deg, var(--primary-color), #3b82f6);
     color: white;
     text-align: center;
@@ -49,6 +50,44 @@ header p {
     font-size: 0.85rem;
     opacity: 0.9;
 }
+
+/* login buuton */
+.admin-header-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 50px; /* Bentuk Pill */
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+/* Efek Hover (Saat Kursor Diatas Tombol) */
+.admin-header-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.45);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Efek Klik */
+.admin-header-btn:active {
+    transform: translateY(0);
+}
+
 
 /* --- LOCK/ADMIN TRIGGER BUTTON --- */
 /* --- LOGIN PAGE STYLING --- */
@@ -210,6 +249,13 @@ header p {
 @media screen and (max-width: 768px) {
     .form-grid {
         grid-template-columns: 1fr; /* Berubah menjadi 1 kolom di layar kecil */
+    }
+
+    .admin-header-btn {
+        top: 10px;
+        right: 10px;
+        padding: 5px 10px;
+        font-size: 0.75rem;
     }
 }
 /* --- FILTER NAVIGATION (DYNAMIC TABS) --- */
@@ -423,7 +469,7 @@ section h2 {
 }
 
 .prod-active-period {
-    font-size: 0.7rem;
+    font-size: 1rem;
     color: var(--text-muted);
 }
 

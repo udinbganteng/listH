@@ -53,29 +53,37 @@ async function loginAdmin() {
 
 // 2. Auth State Listener (Auto Check)
 onAuthStateChanged(auth, (user) => {
+    const adminFormContainer = document.getElementById('adminFormContainer');
     const adminControls = document.getElementById('adminControls');
-    const loginPage = document.getElementById('loginPage');
+    const adminLoginBtn = document.getElementById('adminLoginBtn');
 
     if (user) {
-        loginPage.style.display = 'none';
-        adminControls.style.display = 'block';
+        // User Terautentikasi (Mode Admin Aktif)
+        if (adminFormContainer) adminFormContainer.style.display = 'block';
+        if (adminControls) adminControls.style.display = 'block';
+        if (adminLoginBtn) adminLoginBtn.style.display = 'none'; // Sembunyikan tombol login di header
         isAdminMode = true;
     } else {
-        loginPage.style.display = 'block';
-        adminControls.style.display = 'none';
+        // User Umum (Mode User Biasa)
+        if (adminFormContainer) adminFormContainer.style.display = 'none';
+        if (adminControls) adminControls.style.display = 'none';
+        if (adminLoginBtn) adminLoginBtn.style.display = 'block'; // Tampilkan kembali tombol login di header
         isAdminMode = false;
     }
 
+    // Render ulang tampilan katalog sesuai hak akses adminMode terbaru
     setTimeout(() => {
-        renderProducts(); // kasih delay biar DOM ready
+        renderProducts(); 
     }, 50);
 });
 
-function logoutAdmin() {
-    signOut(auth);
-    document.getElementById('email').value = "";
-    document.getElementById('password').value = "";
-    document.getElementById('loginError').innerText = "";
+async function logoutAdmin() {
+    try {
+        await signOut(auth);
+        alert("Anda telah keluar dari mode admin.");
+    } catch (error) {
+        console.error("Gagal melakukan sign out:", error);
+    }
 }
 
 /* ========================================================
@@ -364,17 +372,14 @@ async function addNewProduct(event) {
 window.filterProvider = filterProvider;
 window.filterCategory = filterCategory;
 window.changeSort = changeSort;
-window.toggleAdminMode = toggleAdminMode;
 window.openBuyModal = openBuyModal;
 window.closeModal = closeModal;
 window.processBuy = processBuy;
 window.toggleStock = toggleStock;
 window.addNewProduct = addNewProduct;
 
-window.loginAdmin = loginAdmin;
-window.logoutAdmin = logoutAdmin;
+window.logoutAdmin = logoutAdmin; // Pastikan ini tetap ada
 
-// Inisialisasi saat load DOM
 window.addEventListener('DOMContentLoaded', () => {
     initFirebaseStock();
 });

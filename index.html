@@ -14,22 +14,16 @@
 <body>
 
     <header>
+        <!-- Tombol Admin Login di Pojok Kanan Atas -->
+        <a href="login.html" id="adminLoginBtn" class="admin-header-btn">👤 Admin Login</a>
+        
         <h1>Udin Kuota</h1>
         <p>List harga kuota internet terlengkap. Langsung order ke WhatsApp!</p>
     </header>
 
     <!-- ADMIN PANEL CONTAINER -->
-    <div class="admin-form-container" id="adminFormContainer">
-        <!-- Halaman Login -->
-        <div id="loginPage" class="loginpage">
-            <h3>🔐 Admin Login</h3>
-            <input type="email" id="email" placeholder="Email admin" autocomplete="off">
-            <input type="password" id="password" placeholder="Password" autocomplete="off">
-            <button onclick="loginAdmin()" class="login">Login</button>
-            <p id="loginError" class="error-msg"></p>
-        </div>
-
-        <!-- Panel Kontrol Admin (Muncul setelah login) -->
+    <div class="admin-form-container" id="adminFormContainer" style="display: none;">
+        <!-- Panel Kontrol Admin (Muncul Otomatis Jika Terdeteksi Login) -->
         <div id="adminControls" style="display: none;">
             
             <!-- Form Input Produk Baru -->
@@ -129,7 +123,6 @@
 
     <!-- MODAL INPUT NOMOR -->
     <div id="buyModal" class="modal-overlay">
-        <!-- ... Struktur modal tetap sama ... -->
         <div class="modal-content">
             <div class="modal-title">Konfirmasi Pembelian</div>
             <div class="modal-body">
