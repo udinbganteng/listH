@@ -51,144 +51,167 @@ header p {
 }
 
 /* --- LOCK/ADMIN TRIGGER BUTTON --- */
-
+/* --- LOGIN PAGE STYLING --- */
 .loginpage {
-    display: flex;
-    justify-content: center;
-    width: 50%;
-    margin: auto;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    max-width: 400px;
+    margin: 2rem auto;
     text-align: center;
 }
 
+.loginpage h3 {
+    margin-bottom: 1rem;
+    color: var(--text-main);
+}
+
 .loginpage input {
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    outline: none;
+}
+
+.loginpage input:focus {
+    border-color: var(--primary-color);
 }
 
 .login {
-    width: 50%;
-    margin: auto;
-    padding: 8px;
+    width: 100%;
+    padding: 10px;
     background: var(--primary-color);
     color: white;
+    font-weight: 600;
     border: none;
-    cursor: pointer;
-    border-radius: 8px;
-}
-
-@media screen and (max-width: 768px) {
-    .loginpage{
-        width: 80%;
-    }
-    .loginpage input {
-        max-width: 95%;        
-    }
-}
-.logoutpage {
-    background: var(--admin-bg);
-    border: 2px dashed var(--admin-border);
-    border-radius: 12px;
-    padding: 1rem;
-    
-}
-.logoutpage h3 {
-    color: #5b21b6;
-    margin-bottom: 0.75rem;
-    font-size: 1rem;
-}
-.logout {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    padding: 8px 16px;
     border-radius: 6px;
-    font-size: 0.75rem;
     cursor: pointer;
-    backdrop-filter: blur(4px);
-    transition: all 0.2s;
+    transition: background 0.2s;
 }
 
-.admin-trigger {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 0.75rem;
-    cursor: pointer;
-    backdrop-filter: blur(4px);
-    transition: all 0.2s;
+.login:hover {
+    background: var(--primary-hover);
 }
 
-.admin-trigger:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-/* --- FORM TAMBAH PRODUK (SELLER ONLY) --- */
+/* --- ADMIN FORM CONTAINER & CARD (MODERN) --- */
 .admin-form-container {
     max-width: 1200px;
-    margin: 0 auto 1rem auto;
+    margin: 0 auto 1.5rem auto;
     padding: 0 0.75rem;
-    display: none;
+    display: block; /* Akan diatur hidden/show oleh Auth listener JS */
 }
 
 .admin-card-form {
-    background: var(--admin-bg);
-    border: 2px dashed var(--admin-border);
+    background: #ffffff;
+    border: 1px solid var(--admin-border);
     border-radius: 12px;
-    padding: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    margin-bottom: 1rem;
 }
 
 .admin-card-form h3 {
-    color: #5b21b6;
-    margin-bottom: 0.75rem;
-    font-size: 1rem;
+    color: #4f46e5;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    border-bottom: 2px solid var(--admin-border);
+    padding-bottom: 0.5rem;
 }
 
+/* GRID 2 KOLOM */
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.4rem;
 }
 
 .form-group label {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    color: #4c1d95;
+    color: #374151;
 }
 
 .form-group input,
 .form-group select {
-    padding: 0.4rem;
-    border: 1px solid var(--admin-border);
+    padding: 0.6rem;
+    border: 1px solid var(--border-color);
     border-radius: 6px;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     outline: none;
+    background: #f8fafc;
+    transition: border 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #4f46e5;
     background: #ffffff;
 }
 
 .btn-admin-submit {
-    background-color: var(--admin-color);
+    background-color: #4f46e5;
     color: white;
-    padding: 0.5rem 1rem;
+    padding: 0.8rem 1rem;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-weight: 600;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     cursor: pointer;
     width: 100%;
+    transition: background 0.2s;
 }
 
+.btn-admin-submit:hover {
+    background-color: #4338ca;
+}
+
+/* --- LOGOUT SECTION --- */
+.logoutpage {
+    background: #ffffff;
+    border: 1px solid #fee2e2;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.logoutpage h3 {
+    color: var(--danger-color);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.logout {
+    background: var(--danger-color);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.logout:hover {
+    background: #b91c1c;
+}
+
+/* RESPONSIVE LAYOUT UNTUK HP */
+@media screen and (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr; /* Berubah menjadi 1 kolom di layar kecil */
+    }
+}
 /* --- FILTER NAVIGATION (DYNAMIC TABS) --- */
 .tabs-container {
     max-width: 1200px;

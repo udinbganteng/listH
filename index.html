@@ -14,88 +14,82 @@
 <body>
 
     <header>
-        <button class="admin-trigger" id="adminBtn" onclick="toggleAdminMode()">🔒 Mode Penjual</button>
         <h1>Udin Kuota</h1>
         <p>List harga kuota internet terlengkap. Langsung order ke WhatsApp!</p>
     </header>
 
-    <!-- ADMIN PANEL FORM -->
-    <!-- <div class="admin-form-container" id="adminFormContainer"> -->
-    <!-- <div class="admin-card-form">
-            <h3>🛠️ Panel Input Paket Data Baru (Khusus Penjual)</h3>
-            <form id="newProductForm" onsubmit="addNewProduct(event)">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="pName">Nama Paket/Produk</label>
-                        <input type="text" id="pName" placeholder="Contoh: Mini Data 2GB" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="pProvider">Provider Internet</label>
-                        <select id="pProvider" required>
-                            <option value="Telkomsel">Telkomsel</option>
-                            <option value="Indosat">Indosat</option>
-                            <option value="XL">XL</option>
-                            <option value="Axis">Axis</option>
-                            <option value="Three">Three</option>
-                            <option value="Smartfren">Smartfren</option>
-                            <option value="LiveOn">LiveOn</option>
-                            <option value="ByU">ByU</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="pType">Kategori Durasi</label>
-                        <select id="pType" required>
-                            <option value="harian">⏳ Harian</option>
-                            <option value="mingguan">🗓️ Mingguan/Bulanan</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="pQuota">Jumlah Kuota</label>
-                        <input type="text" id="pQuota" placeholder="Contoh: 2 GB" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="pActive">Masa Aktif</label>
-                        <input type="text" id="pActive" placeholder="Contoh: 3 Hari" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="pPrice">Harga Jual (Rupiah)</label>
-                        <input type="number" id="pPrice" placeholder="Contoh: 15000" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="pLocation">Lokasi Tembak Menu</label>
-                        <input type="text" id="pLocation" placeholder="Isi Ulang Data > ..." required>
-                    </div>
-                    <div class="form-group">
-                        <label for="pNote">Catatan Kulakan</label>
-                        <input type="text" id="pNote" placeholder="Paket ada di menu..." required>
-                    </div>
-                </div>
-                <button type="submit" class="btn-admin-submit">➕ Tambahkan ke Daftar Harga</button>
-            </form>
-        </div> -->
-    <!-- </div> -->
-
-    <!-- ADMIN PANEL FORM -->
-    <div class="admin-form-container" id="adminFormContainer" style="display: none;">
+    <!-- ADMIN PANEL CONTAINER -->
+    <div class="admin-form-container" id="adminFormContainer">
         <!-- Halaman Login -->
         <div id="loginPage" class="loginpage">
             <h3>🔐 Admin Login</h3>
-            <input type="email" id="email" placeholder="Email admin"
-                style="width:100%; margin-bottom:10px; padding:8px;" autocomplete="off">
-            <input type="password" id="password" placeholder="Password"
-                style="width:100%; margin-bottom:10px; padding:8px;" autocomplete="off">
-            <button onclick="loginAdmin()"
-                class="login">Login</button>
-            <p id="loginError" style="color:red; font-size:0.8rem; margin-top:5px;"></p>
+            <input type="email" id="email" placeholder="Email admin" autocomplete="off">
+            <input type="password" id="password" placeholder="Password" autocomplete="off">
+            <button onclick="loginAdmin()" class="login">Login</button>
+            <p id="loginError" class="error-msg"></p>
         </div>
 
-        <!-- Form Produk (Akan ditampilkan lewat JS setelah login) -->
+        <!-- Panel Kontrol Admin (Muncul setelah login) -->
         <div id="adminControls" style="display: none;">
+            
+            <!-- Form Input Produk Baru -->
+            <div class="admin-card-form">
+                <h3>🛠️ Tambah Produk Baru</h3>
+                <form id="newProductForm" onsubmit="addNewProduct(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="pName">Nama Paket</label>
+                            <input type="text" id="pName" placeholder="Contoh: OMG 15GB" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pProvider">Provider</label>
+                            <select id="pProvider" required>
+                                <option value="Telkomsel">Telkomsel</option>
+                                <option value="Indosat">Indosat</option>
+                                <option value="XL">XL</option>
+                                <option value="Axis">Axis</option>
+                                <option value="Three">Three</option>
+                                <option value="Smartfren">Smartfren</option>
+                                <option value="LiveOn">LiveOn</option>
+                                <option value="ByU">By.U</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pType">Kategori</label>
+                            <select id="pType" required>
+                                <option value="harian">⏳ Harian</option>
+                                <option value="mingguan">🗓️ Mingguan/Bulanan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pQuota">Kuota</label>
+                            <input type="text" id="pQuota" placeholder="Contoh: 15 GB" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pActive">Masa Aktif</label>
+                            <input type="text" id="pActive" placeholder="Contoh: 30 Hari" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pPrice">Harga (Rupiah)</label>
+                            <input type="number" id="pPrice" placeholder="Contoh: 50000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pLocation">Lokasi / Menu Tembak</label>
+                            <input type="text" id="pLocation" placeholder="*363# > Menu 2" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pNote">Catatan</label>
+                            <input type="text" id="pNote" placeholder="Catatan khusus (opsional)" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-admin-submit">➕ Tambah Produk</button>
+                </form>
+            </div>
+
+            <!-- Panel Logout -->
             <div class="logoutpage">
-                <h3>🔐 Admin Logout</h3>
-                <!-- <h3>🛠️ Panel Input Paket Data Baru</h3> -->
-                <!-- Form input produk tetap di sini -->
-                <button onclick="logoutAdmin()" class="logout" style="background:var(--danger-color); margin-top:10px;">Logout</button>
+                <h3>Keluar dari Mode Admin</h3>
+                <button onclick="logoutAdmin()" class="logout">Logout</button>
             </div>
         </div>
     </div>
@@ -135,6 +129,7 @@
 
     <!-- MODAL INPUT NOMOR -->
     <div id="buyModal" class="modal-overlay">
+        <!-- ... Struktur modal tetap sama ... -->
         <div class="modal-content">
             <div class="modal-title">Konfirmasi Pembelian</div>
             <div class="modal-body">
@@ -154,15 +149,9 @@
         </div>
     </div>
 
-    <!-- TOAST NOTIFICATION -->
     <div id="toast" class="toast">✅ Paket berhasil dipilih, mengarahkan ke WhatsApp...</div>
 
-    <!-- ========================================================
-         SCRIPT: FIREBASE MODULAR SDK + LOGIKA APLIKASI
-         ======================================================== -->
-    <script type="module" src="script.js">
-
-    </script>
+    <script type="module" src="script.js"></script>
 </body>
 
 </html>
