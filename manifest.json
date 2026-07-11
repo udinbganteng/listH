@@ -1,7 +1,7 @@
 {
   "name": "Kuota Udin",
   "short_name": "Kuotaku",
-  "start_url": "https://udinbganteng.github.io/listH/",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#317EFB",
