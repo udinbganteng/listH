@@ -8,6 +8,9 @@
     <link rel="icon" type="image/png" href="icon-192.png" sizes="192x192">
     <link class="apple-touch-icon" href="icon-192.png">
     <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <title>KuotaKu - Warung Udin</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -18,8 +21,14 @@
         <!-- Tombol Admin Login di Pojok Kanan Atas -->
         <a href="login.html" id="adminLoginBtn" class="admin-header-btn">👤 Admin Login</a>
         
-        <h1>Udin Kuota</h1>
-        <p>List harga kuota internet terlengkap. Langsung order ke WhatsApp!</p>
+        <div class="header-content">
+            <h1>Udin Kuota</h1>
+            <p>Temukan paket internet yang sesuai kebutuhanmu</p>
+            <div class="search-box">
+                <span>🔍</span>
+                <input type="search" id="productSearch" placeholder="Cari nama paket atau provider..." oninput="searchProducts(this.value)">
+            </div>
+        </div>
     </header>
 
     <!-- ADMIN PANEL CONTAINER -->

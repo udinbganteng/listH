@@ -33,6 +33,7 @@ let products = [];
 let currentFilter = 'all';
 let currentCategory = 'all';
 let currentSort = 'default';
+let searchQuery = '';
 let isAdminMode = false;
 let selectedProductId = null;
 
@@ -134,6 +135,84 @@ async function toggleStock(id, isAvailable) {
     }
 }
 
+// Ubah harga produk dari panel admin.
+async function updatePrice(id, inputElement) {
+    if (!isAdminMode) return;
+
+    const newPrice = Number(inputElement.value);
+    if (!Number.isInteger(newPrice) || newPrice < 0) {
+        alert("Harga harus berupa angka bulat 0 atau lebih.");
+        const product = products.find(p => String(p.id) === String(id));
+        if (product) inputElement.value = product.price;
+        return;
+    }
+
+    inputElement.disabled = true;
+    try {
+        await updateDoc(doc(db, "produk", String(id)), { harga: newPrice });
+        alert("Harga berhasil diperbarui.");
+    } catch (error) {
+        console.error("Error update harga:", error);
+        alert("Gagal memperbarui harga di server. Cek koneksi internet.");
+        const product = products.find(p => String(p.id) === String(id));
+        if (product) inputElement.value = product.price;
+    } finally {
+        inputElement.disabled = false;
+    }
+}
+
+// Ubah jumlah kuota produk dari panel admin.
+async function updateQuota(id, inputElement) {
+    if (!isAdminMode) return;
+
+    const newQuota = inputElement.value.trim();
+    if (!newQuota) {
+        alert("Jumlah kuota tidak boleh kosong.");
+        const product = products.find(p => String(p.id) === String(id));
+        if (product) inputElement.value = product.quota;
+        return;
+    }
+
+    inputElement.disabled = true;
+    try {
+        await updateDoc(doc(db, "produk", String(id)), { quota: newQuota });
+        alert("Jumlah kuota berhasil diperbarui.");
+    } catch (error) {
+        console.error("Error update kuota:", error);
+        alert("Gagal memperbarui kuota di server. Cek koneksi internet.");
+        const product = products.find(p => String(p.id) === String(id));
+        if (product) inputElement.value = product.quota;
+    } finally {
+        inputElement.disabled = false;
+    }
+}
+
+// Ubah judul/nama produk dari panel admin.
+async function updateProductName(id, inputElement) {
+    if (!isAdminMode) return;
+
+    const newName = inputElement.value.trim();
+    if (!newName) {
+        alert("Judul paket tidak boleh kosong.");
+        const product = products.find(p => String(p.id) === String(id));
+        if (product) inputElement.value = product.name;
+        return;
+    }
+
+    inputElement.disabled = true;
+    try {
+        await updateDoc(doc(db, "produk", String(id)), { nama: newName });
+        alert("Judul paket berhasil diperbarui.");
+    } catch (error) {
+        console.error("Error update judul:", error);
+        alert("Gagal memperbarui judul di server. Cek koneksi internet.");
+        const product = products.find(p => String(p.id) === String(id));
+        if (product) inputElement.value = product.name;
+    } finally {
+        inputElement.disabled = false;
+    }
+}
+
 /* ========================================================
    FUNGSI-FUNGSI UI & LOGIKA 
    ======================================================== */
@@ -164,7 +243,9 @@ function renderProducts() {
     let filtered = products.filter(p => {
         const matchProv = (currentFilter === 'all' || p.provider === currentFilter);
         const matchCat = (currentCategory === 'all' || p.type === currentCategory);
-        return matchProv && matchCat;
+        const searchable = `${p.name} ${p.provider} ${p.quota}`.toLowerCase();
+        const matchSearch = !searchQuery || searchable.includes(searchQuery);
+        return matchProv && matchCat && matchSearch;
     });
 
     if (currentSort === 'asc') filtered.sort((a, b) => a.price - b.price);
@@ -179,7 +260,7 @@ function renderProducts() {
         const card = document.createElement('div');
         const inStock = p.stok;
 
-        card.className = inStock ? 'product-card' : 'product-card out-of-stock';
+        card.className = `${inStock ? 'product-card' : 'product-card out-of-stock'} ${isAdminMode ? 'admin-product-card' : 'user-product-card'}`;
 
         let adminPanelHtml = '';
         if (isAdminMode) {
@@ -192,8 +273,23 @@ function renderProducts() {
                                 </label>
                             </div>
                             <h4>🛠️ Data Kulakan Seller:</h4>
+                            <div class="name-edit-row">
+                                <label for="name-${p.id}">🏷️ Judul:</label>
+                                <input type="text" id="name-${p.id}" value="${p.name}" aria-label="Judul ${p.name}">
+                                <button type="button" class="btn-save-name" onclick="updateProductName('${p.id}', document.getElementById('name-${p.id}'))">Simpan</button>
+                            </div>
                             <div class="seller-meta">📍 Tembak: <span>${p.location}</span></div>
                             <div class="seller-meta">📝 Note: <span>${p.note}</span></div>
+                            <div class="quota-edit-row">
+                                <label for="quota-${p.id}">📦 Kuota:</label>
+                                <input type="text" id="quota-${p.id}" value="${p.quota}" aria-label="Kuota ${p.name}">
+                                <button type="button" class="btn-save-quota" onclick="updateQuota('${p.id}', document.getElementById('quota-${p.id}'))">Simpan</button>
+                            </div>
+                            <div class="price-edit-row">
+                                <label for="price-${p.id}">💰 Harga:</label>
+                                <input type="number" id="price-${p.id}" min="0" step="1" value="${p.price}" aria-label="Harga ${p.name}">
+                                <button type="button" class="btn-save-price" onclick="updatePrice('${p.id}', document.getElementById('price-${p.id}'))">Simpan</button>
+                            </div>
                         </div>
                     `;
         }
@@ -244,6 +340,11 @@ function filterCategory(cat) {
 }
 
 function changeSort(val) { currentSort = val; renderProducts(); }
+
+function searchProducts(value) {
+    searchQuery = value.trim().toLowerCase();
+    renderProducts();
+}
 
 function openBuyModal(id) {
     selectedProductId = id;
@@ -372,10 +473,14 @@ async function addNewProduct(event) {
 window.filterProvider = filterProvider;
 window.filterCategory = filterCategory;
 window.changeSort = changeSort;
+window.searchProducts = searchProducts;
 window.openBuyModal = openBuyModal;
 window.closeModal = closeModal;
 window.processBuy = processBuy;
 window.toggleStock = toggleStock;
+window.updatePrice = updatePrice;
+window.updateQuota = updateQuota;
+window.updateProductName = updateProductName;
 window.addNewProduct = addNewProduct;
 
 window.logoutAdmin = logoutAdmin; // Pastikan ini tetap ada
